@@ -1,4 +1,6 @@
 const express = require('express');
+const connectToDB = require('./DB/dbService');
+
 require("dotenv").config();
 
 const app = express();
@@ -13,4 +15,5 @@ app.use((err, req, res, next) => {
 
 app.listen(process.env.PORT || PORT, () => {
     console.log("app is listening to port " + (process.env.PORT || PORT));
+    connectToDB();
 })
