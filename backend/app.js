@@ -1,5 +1,6 @@
 const express = require('express');
 const connectToDB = require('./DB/dbService');
+const chalk = require('chalk');
 
 require("dotenv").config();
 
@@ -14,6 +15,6 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(process.env.PORT || PORT, () => {
-    console.log("app is listening to port " + (process.env.PORT || PORT));
+    console.log(chalk.green.bold.bgYellow("app is listening to port " + (process.env.PORT || PORT)));
     connectToDB();
 })
