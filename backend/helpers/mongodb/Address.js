@@ -10,6 +10,11 @@ const Address = new mongoose.Schema({
         required: true,
         min: 1,
     },
+    floor: {
+        type: Number,
+        required: true,
+        min: 1,
+    },
 });
 
 module.exports = Address;
