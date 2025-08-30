@@ -16,8 +16,8 @@ const createClub = async (newClub) => {
 //Get All Clubs
 const getAllClubs = async () => {
     try {
-        let cards = await Club.find();
-        return cards;
+        let clubs = await Club.find();
+        return clubs;
     } catch (error) {
         return createError("Mongoose", error.message, 500)
     }
@@ -26,31 +26,40 @@ const getAllClubs = async () => {
 //Get Clubs By Id
 const getClubById = async (id) => {
     try {
-        let card = await Club.findById(id);
-        return card;
+        let club = await Club.findById(id);
+        return club;
     } catch (error) {
         return createError("Mongoose", error.message)
     }
 }
 
 //Update Clubs
-const updateClub = async (cardId, updatedCard) => {
+const updateClub = async (clubId, updatedClub) => {
     try {
-        let card = await Club.findByIdAndUpdate(cardId, updatedCard, { new: true });
-        return card;
+        let club = await Club.findByIdAndUpdate(clubId, updatedClub, { new: true });
+        return club;
     } catch (error) {
         return createError("Mongoose", error.message)
     }
 }
 
 //Delete Clubs
-const deleteClub = async (cardId) => {
+const deleteClub = async (clubId) => {
     try {
-        let card = await Club.findByIdAndDelete(cardId);
-        return card;
+        let club = await Club.findByIdAndDelete(clubId);
+        return club;
     } catch (error) {
         return createError("Mongoose", error.message)
     }
 }
 
 //Like Clubs
+
+
+module.exports = {
+    createClub,
+    getAllClubs,
+    getClubById,
+    updateClub,
+    deleteClub
+}
