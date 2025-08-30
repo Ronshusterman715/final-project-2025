@@ -1,6 +1,7 @@
 const express = require('express');
 const connectToDB = require('./DB/dbService');
 const chalk = require('chalk');
+const router = require('./router/router');
 
 require("dotenv").config();
 
@@ -8,6 +9,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+
+app.use(router);
 
 app.use((err, req, res, next) => {
     console.log(err);

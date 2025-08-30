@@ -37,3 +37,5 @@ router.get('/:id', async (req, res) => {
 });
 
 //Update club
+
+module.exports = router;
