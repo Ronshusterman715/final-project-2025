@@ -31,7 +31,7 @@ const getClubById = async (id) => {
     } catch (error) {
         return createError("Mongoose", error.message)
     }
-}
+};
 
 //Update Clubs
 const updateClub = async (clubId, updatedClub) => {
@@ -41,7 +41,7 @@ const updateClub = async (clubId, updatedClub) => {
     } catch (error) {
         return createError("Mongoose", error.message)
     }
-}
+};
 
 //Delete Clubs
 const deleteClub = async (clubId) => {
@@ -51,15 +51,35 @@ const deleteClub = async (clubId) => {
     } catch (error) {
         return createError("Mongoose", error.message)
     }
-}
+};
 
 //Like Clubs
+const likeClub = async (clubId, userId) => {
+    try {
+        let club = await Club.findById(clubId);
+        if (!club) {
+            return createError("mongoose", "Card with id " + clubId + " cannot be found in the database")
+        }
 
+        if (club.likes.includes(userId)) {
+            let newLikesArray = club.likes.filter(id => id !== userId);
+            club.likes = newLikesArray;
+        } else {
+            club.likes.push(userId);
+        }
+
+        await club.save();
+        return club;
+    } catch (error) {
+        return createError("Mongoose", error.message)
+    }
+};
 
 module.exports = {
     createClub,
     getAllClubs,
     getClubById,
     updateClub,
-    deleteClub
+    deleteClub,
+    likeClub
 }

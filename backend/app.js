@@ -21,3 +21,4 @@ app.listen(process.env.PORT || PORT, () => {
     console.log(chalk.green.bold.bgYellow("app is listening to port " + (process.env.PORT || PORT)));
     connectToDB();
 })
+
