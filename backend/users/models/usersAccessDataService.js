@@ -40,11 +40,11 @@ const loginUser = async (email, password) => {
     try {
         const userFromDB = await User.findOne({ email });
         if (!userFromDB) {
-            return createError("Authentication", "User not exist");
+            return createError("Authentication", "User not exist", 401);
         }
 
         if (userFromDB.password !== password) {
-            return createError("Authentication", "invalid email or password");
+            return createError("Authentication", "invalid email or password", 403);
         }
 
         const token = generateAuthToken(userFromDB)

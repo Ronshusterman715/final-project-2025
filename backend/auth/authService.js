@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
 
             const userInfo = verifyToken(tokenFromClient);
             if (!userInfo) {
-                return createError("Authentication", "Unauthorized User", 403);
+                return createError("Authentication", "Unauthorized User", 401);
             }
 
             req.user = userInfo;
