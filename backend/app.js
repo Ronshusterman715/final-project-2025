@@ -12,6 +12,8 @@ const PORT = 3000;
 
 app.use(express.json());
 
+app.use(express.static("./public"))
+
 app.use((req, res, next) => {
     console.log(`Request URL: ${req.url} | Method: ${req.method} | Time: ${new Date()}`);
     next();
