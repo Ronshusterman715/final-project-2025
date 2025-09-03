@@ -2,6 +2,7 @@ const express = require('express');
 const { createClub, getAllClubs, getClubById, updateClub, deleteClub, likeClub } = require('../models/clubsAccessDataService');
 const { handleError, createError } = require('../../utils/handleErrors');
 const auth = require('../../auth/authService');
+const { normalizeClub } = require('../helpers/normalizeClub');
 
 const router = express.Router();
 
@@ -52,8 +53,8 @@ router.put('/:id', auth, async (req, res) => {
             return createError("authorization", "Only Admin users can update clubs", 403)
         }
 
-
-        let club = await updateClub(id, req.body);
+        let normalizedClub = normalizeClub(req.body, userInfo._id);
+        let club = await updateClub(id, normalizedClub);
         res.status(201).send(club);
     } catch (error) {
         return handleError(res, error.status, error.message)
