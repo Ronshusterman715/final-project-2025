@@ -1,6 +1,7 @@
 const express = require('express');
-const { handleError } = require('../../utils/handleErrors');
+const { handleError, createError } = require('../../utils/handleErrors');
 const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
+const auth = require('../../auth/authService');
 
 const router = express.Router();
 
@@ -16,10 +17,16 @@ router.post('/register', async (req, res) => {
 });
 
 //Get User By id
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     try {
         const { id } = req.params;
+
+        let userInfo = req.user;
         let user = await getUser(id);
+        if (!userInfo.isAdmin && userInfo._id != user.user_id) {
+            return createError("autorotation", "only the user himself or an admin can view this user info", 403)
+        }
+
         return res.status(200).send(user);
     } catch (error) {
         return handleError(res, error.status, error.message);
@@ -27,8 +34,13 @@ router.get('/:id', async (req, res) => {
 });
 
 //Get All Users
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
+        let userInfo = req.user;
+        if (!userInfo.isAdmin) {
+            return createError("autorotation", "Only admin user can view all users", 403);
+        }
+
         let users = await getAllUsers();
         return res.status(200).send(users);
     } catch (error) {

@@ -1,12 +1,18 @@
 const express = require('express');
 const { createClub, getAllClubs, getClubById, updateClub, deleteClub, likeClub } = require('../models/clubsAccessDataService');
-const { handleError } = require('../../utils/handleErrors');
+const { handleError, createError } = require('../../utils/handleErrors');
+const auth = require('../../auth/authService');
 
 const router = express.Router();
 
 //Create new club
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     try {
+        const userInfo = req.user;
+        if (!userInfo.isAdmin) {
+            return createError("authorization", "Only Admin users can create clubs", 403)
+        }
+
         let club = await createClub(req.body);
         res.status(201).send(club);
     } catch (error) {
@@ -37,9 +43,16 @@ router.get('/:id', async (req, res) => {
 });
 
 //Update club
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     try {
         const { id } = req.params;
+
+        let userInfo = req.user;
+        if (!userInfo.isAdmin) {
+            return createError("authorization", "Only Admin users can update clubs", 403)
+        }
+
+
         let club = await updateClub(id, req.body);
         res.status(201).send(club);
     } catch (error) {
@@ -48,9 +61,15 @@ router.put('/:id', async (req, res) => {
 });
 
 //delete
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
     try {
         const { id } = req.params;
+
+        let userInfo = req.user;
+        if (!userInfo.isAdmin) {
+            return createError("authorization", "Only Admin users can delete clubs", 403)
+        }
+
         let club = await deleteClub(id);
         res.status(201).send(club);
     } catch (error) {
@@ -59,10 +78,18 @@ router.delete('/:id', async (req, res) => {
 });
 
 //like club
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     try {
         const { id } = req.params;
-        const { userId } = req.body;
+
+        let userInfo = req.user;
+
+        if (!userInfo._id) {
+            return createError("authorization", "only logged in users can like clubs", 403)
+        }
+
+        const userId = userInfo._id;
+
         let club = await likeClub(id, userId);
         res.status(200).send(club);
     } catch (error) {
