@@ -3,6 +3,7 @@ const { handleError, createError } = require('../../utils/handleErrors');
 const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
 const auth = require('../../auth/authService');
 const returnUser = require('../helpers/returnUser');
+const { validateRegistration, validateLogin } = require('../validation/userValidationService');
 
 const router = express.Router();
 
@@ -10,6 +11,12 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     try {
         let newUser = req.body;
+
+        const errorMassage = validateRegistration(newUser);
+        if (errorMassage !== "") {
+            return createError("validation", errorMassage, 400);
+        }
+
         let user = await registerUser(newUser);
         return res.status(201).send(returnUser(user));
     } catch (error) {
@@ -53,6 +60,11 @@ router.get('/', auth, async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         let { email, password } = req.body;
+
+        const errorMassage = validateLogin(email, password);
+        if (errorMassage !== "") {
+            return createError("validation", errorMassage, 400);
+        }
 
         const token = await loginUser(email, password);
         return res.status(200).send(token)
