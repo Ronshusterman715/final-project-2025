@@ -2,6 +2,7 @@ const express = require('express');
 const { handleError, createError } = require('../../utils/handleErrors');
 const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
 const auth = require('../../auth/authService');
+const returnUser = require('../helpers/returnUser');
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.post('/register', async (req, res) => {
     try {
         let newUser = req.body;
         let user = await registerUser(newUser);
-        return res.status(201).send(user);
+        return res.status(201).send(returnUser(user));
     } catch (error) {
         return handleError(res, 400, error.message)
     }

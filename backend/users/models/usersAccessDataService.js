@@ -1,11 +1,13 @@
 const { generateAuthToken } = require("../../auth/providers/jwt");
 const { createError } = require("../../utils/handleErrors");
+const { generateUserPassword, comparePasswords } = require("../helpers/bcrypt");
 const User = require("./mongodb/User");
 
 
 //Register New User
 const registerUser = async (newUser) => {
     try {
+        newUser.password = generateUserPassword(newUser.password);
         let user = new User(newUser);
         user = await user.save();
         return user;
@@ -43,7 +45,7 @@ const loginUser = async (email, password) => {
             return createError("Authentication", "User not exist", 401);
         }
 
-        if (userFromDB.password !== password) {
+        if (!comparePasswords(password, userFromDB.password)) {
             return createError("Authentication", "invalid email or password", 403);
         }
 
