@@ -1,11 +1,24 @@
 const morgan = require('morgan');
+
+const chalk = require('chalk');
+const fs = require('fs');
+const path = require('path');
 const currentTime = require('../../utils/timeHelper');
 
-const morganLogger = morgan(function (tokens, req, res) {
-    const { year, month, day, hour, minute, second } = currentTime();
+const logDirectory = path.join(__dirname, "../../logs");
 
-    let massage = [
-        `[${year}-${month}-${day} ${hour}:${minute}:${second}]`,
+if (!fs.existsSync(logDirectory)) {
+    fs.mkdirSync(logDirectory, { recursive: true });
+}
+
+const morganLogger = morgan(function (tokens, req, res) {
+    const { year, month, day, hours, minutes, second } = currentTime();
+
+    const dateForFile = `${year}-${month}-${day}`;
+    const logFilePath = path.join(logDirectory, `${dateForFile}.log`);
+
+    let message = [
+        `[${year}-${month}-${day} ${hours}:${minutes}:${second}]`,
         tokens.method(req, res),
         tokens.url(req, res),
         tokens.status(req, res),
@@ -15,6 +28,9 @@ const morganLogger = morgan(function (tokens, req, res) {
     ].join(" ");
 
     if (tokens.status(req, res) >= 400) {
+        const errorText = res.locals.errorMessage ? `| ${res.locals.errorMessage}` : "";
+        const plainMessage = message + errorText + "\n";
+        fs.appendFileSync(logFilePath, plainMessage);
         return chalk.redBright(message);
     } else return chalk.cyanBright(message);
 });

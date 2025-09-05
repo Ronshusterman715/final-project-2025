@@ -1,0 +1,1 @@
+[2025-09-05 21:21:undefined] POST /clubs/ 400  -  15.687 ms| validation Error: "name" is not allowed to be empty,"image._id" is not allowed,"address.houseNumber" must be a string,"address._id" is not allowed,"_id" is not allowed,"likes" is not allowed,"createdAt" is not allowed,"__v" is not allowed
