@@ -3,6 +3,7 @@ const { createClub, getAllClubs, getClubById, updateClub, deleteClub, likeClub }
 const { handleError, createError } = require('../../utils/handleErrors');
 const auth = require('../../auth/authService');
 const { normalizeClub } = require('../helpers/normalizeClub');
+const { clubValidation } = require('../validation/clubValidationService');
 
 const router = express.Router();
 
@@ -12,6 +13,11 @@ router.post('/', auth, async (req, res) => {
         const userInfo = req.user;
         if (!userInfo.isAdmin) {
             return createError("authorization", "Only Admin users can create clubs", 403)
+        }
+
+        const errorMassage = clubValidation(req.body);
+        if (errorMassage) {
+            return createError("validation", errorMassage, 400)
         }
 
         let club = await createClub(req.body);
@@ -52,6 +58,12 @@ router.put('/:id', auth, async (req, res) => {
         if (!userInfo.isAdmin) {
             return createError("authorization", "Only Admin users can update clubs", 403)
         }
+
+        const errorMassage = clubValidation(req.body);
+        if (errorMassage) {
+            return createError("validation", errorMassage, 400)
+        }
+
 
         let normalizedClub = normalizeClub(req.body, userInfo._id);
         let club = await updateClub(id, normalizedClub);
