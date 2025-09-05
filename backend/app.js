@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const router = require('./router/router');
 const { handleError } = require('./utils/handleErrors');
 const corsMiddleware = require('./middlewares/cors');
+const loggerMiddleWare = require('./logger/loggerService');
 
 require("dotenv").config();
 
@@ -14,10 +15,7 @@ app.use(express.json());
 
 app.use(express.static("./public"))
 
-app.use((req, res, next) => {
-    console.log(`Request URL: ${req.url} | Method: ${req.method} | Time: ${new Date()}`);
-    next();
-});
+app.use(loggerMiddleWare());
 
 app.use(corsMiddleware);
 
