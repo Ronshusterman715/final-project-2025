@@ -1,1 +1,5 @@
 [2025-09-06 12:55:undefined] POST /users/register 400  -  85.650 ms| mongoose Error: User validation failed: password: Path `password` is invalid ($2b$10$dxCoHvY/tYbs6c41GVzFNeQ...).
+[2025-09-06 13:04:undefined] POST /users/login 400  -  2.324 ms| validation Error: "value" must be of type object
+[2025-09-06 13:10:undefined] GET /user 404  -  0.579 ms| Page not found
+[2025-09-06 13:10:undefined] GET /users 403  -  3.593 ms| autorotation Error: Only admin user can view all users
+[2025-09-06 13:13:43] GET /users 403  -  8.419 ms| autorotation Error: Only admin user can view all users

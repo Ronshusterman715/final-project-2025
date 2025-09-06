@@ -12,13 +12,13 @@ if (!fs.existsSync(logDirectory)) {
 }
 
 const morganLogger = morgan(function (tokens, req, res) {
-    const { year, month, day, hours, minutes, second } = currentTime();
+    const { year, month, day, hours, minutes, seconds } = currentTime();
 
     const dateForFile = `${year}-${month}-${day}`;
     const logFilePath = path.join(logDirectory, `${dateForFile}.log`);
 
     let message = [
-        `[${year}-${month}-${day} ${hours}:${minutes}:${second}]`,
+        `[${year}-${month}-${day} ${hours}:${minutes}:${seconds}]`,
         tokens.method(req, res),
         tokens.url(req, res),
         tokens.status(req, res),

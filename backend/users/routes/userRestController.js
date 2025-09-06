@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
     try {
         let { email, password } = req.body;
 
-        const errorMassage = validateLogin(email, password);
+        const errorMassage = validateLogin(req.body);
         if (errorMassage !== "") {
             return createError("validation", errorMassage, 400);
         }
