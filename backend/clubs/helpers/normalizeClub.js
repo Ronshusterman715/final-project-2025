@@ -1,5 +1,5 @@
 
-const normalizeClub = async (rawClub, userId) => {
+const normalizeClub = (rawClub, userId) => {
     return {
         ...rawClub,
         image: {

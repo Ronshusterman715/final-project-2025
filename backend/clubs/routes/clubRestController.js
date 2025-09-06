@@ -27,7 +27,7 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-//Get all cards
+//Get all clubs
 router.get('/', async (req, res) => {
     try {
         let allClubs = await getAllClubs();
@@ -55,6 +55,9 @@ router.put('/:id', auth, async (req, res) => {
         const { id } = req.params;
 
         let userInfo = req.user;
+
+        //TODO add if club exist
+
         if (!userInfo.isAdmin) {
             return createError("authorization", "Only Admin users can update clubs", 403)
         }
@@ -84,7 +87,7 @@ router.delete('/:id', auth, async (req, res) => {
         }
 
         let club = await deleteClub(id);
-        res.status(201).send(club);
+        res.status(200).send(club);
     } catch (error) {
         return handleError(res, error.status, error.message)
     }
