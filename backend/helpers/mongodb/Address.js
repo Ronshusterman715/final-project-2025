@@ -12,7 +12,6 @@ const Address = new mongoose.Schema({
     },
     floor: {
         type: Number,
-        required: true,
         min: 1,
     },
 });
