@@ -31,7 +31,7 @@ router.get('/:id', auth, async (req, res) => {
 
         let userInfo = req.user;
         let user = await getUser(id);
-        if (!userInfo.isAdmin && userInfo._id != user.user_id) {
+        if (!userInfo.isAdmin && userInfo._id !== id) {
             return createError("autorotation", "only the user himself or an admin can view this user info", 403)
         }
 
