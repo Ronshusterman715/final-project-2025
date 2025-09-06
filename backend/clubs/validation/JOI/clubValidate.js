@@ -22,7 +22,7 @@ const clubValidate = (club) => {
             city: joi.string().min(2).max(256).required(),
             street: joi.string().min(2).max(256).required(),
             houseNumber: joi.string().min(1).required(),
-            floor: joi.number().min(1).required(),
+            floor: joi.number().min(0),
         }).required(),
     });
     return schema.validate(club, { abortEarly: false });
