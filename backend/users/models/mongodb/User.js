@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 8,
         trim: true,
-        match: (/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/)
     },
     image: Image,
     isAdmin: {

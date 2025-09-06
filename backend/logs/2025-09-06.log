@@ -1,0 +1,1 @@
+[2025-09-06 12:55:undefined] POST /users/register 400  -  85.650 ms| mongoose Error: User validation failed: password: Path `password` is invalid ($2b$10$dxCoHvY/tYbs6c41GVzFNeQ...).
