@@ -3,3 +3,6 @@
 [2025-09-06 13:10:undefined] GET /user 404  -  0.579 ms| Page not found
 [2025-09-06 13:10:undefined] GET /users 403  -  3.593 ms| autorotation Error: Only admin user can view all users
 [2025-09-06 13:13:43] GET /users 403  -  8.419 ms| autorotation Error: Only admin user can view all users
+[2025-09-06 13:15:56] PUT /users/68bc06d9a0972c93f3405695 400  -  10.938 ms| validation Error: Password must contain at least one uppercase letter, lowercase letter, number and special character (@$!%*?&). Length: 8-20 characters.
+[2025-09-06 13:20:16] POST /clubs 403  -  2.607 ms| authorization Error: Only Admin users can create clubs
+[2025-09-06 13:20:26] POST /clubs 400  -  4.082 ms| validation Error: "address.houseNumber" must be a string
