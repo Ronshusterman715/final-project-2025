@@ -57,16 +57,38 @@ const loginUser = async (email, password) => {
 };
 
 //Update User
+const updateUser = async (userId, updatedUser) => {
+    try {
+        const userFromDB = await User.findById(userId);
+        if (!userFromDB) {
+            return createError("Authentication", "User not exist", 400);
+        }
 
+        let user = await User.findByIdAndUpdate(userId, updatedUser)
+        user = await user.save();
+        return user;
+    } catch (error) {
+        return createError("mongoose", error.message)
+    }
+};
 
 //Delete User
+const deleteUser = async (id) => {
+    let user = await User.findById(id);
 
+    if (!user) {
+        return createError("Authentication", "User not exist", 400);
+    }
+
+    user = await User.findByIdAndDelete(id);
+    return user;
+};
 
 module.exports = {
     registerUser,
     getUser,
     getAllUsers,
     loginUser,
-    // updateUser,
-    // deleteUser,
+    updateUser,
+    deleteUser,
 };

@@ -1,6 +1,6 @@
 const express = require('express');
 const { handleError, createError } = require('../../utils/handleErrors');
-const { registerUser, getUser, getAllUsers, loginUser } = require('../models/usersAccessDataService');
+const { registerUser, getUser, getAllUsers, loginUser, updateUser, deleteUser } = require('../models/usersAccessDataService');
 const auth = require('../../auth/authService');
 const returnUser = require('../helpers/returnUser');
 const { validateRegistration, validateLogin } = require('../validation/userValidationService');
@@ -74,9 +74,39 @@ router.post('/login', async (req, res) => {
 });
 
 //Update User
-
+router.put('/:id', auth, async (req, res) => {
+    let userInfo = req.user;
+    let updatedUser = req.body;
+    const { id } = req.params;
+    try {
+        if (!userInfo.isAdmin && userInfo._id !== id) {
+            return createError("Authorization", "Only the own user or admin can edit is details", 403);
+        }
+        const errorMessage = validateRegistration(updatedUser);
+        if (errorMessage !== "") {
+            return createError("validation", errorMessage, 400);
+        }
+        let user = await updateUser(id, updatedUser);
+        return res.status(201).send(returnUser(user));
+    } catch (error) {
+        return handleError(res, 400, error.message)
+    }
+});
 
 //Delete User
-
+router.delete('/:id', auth, async (req, res) => {
+    const { id } = req.params;
+    let userInfo = req.user;
+    try {
+        if (!userInfo.isAdmin && userInfo._id !== id) {
+            return createError("Authorization", "Only the own user or admin can delete this user", 403
+            );
+        }
+        let user = await deleteUser(id);
+        return res.status(200).send(returnUser(user));
+    } catch (error) {
+        return handleError(res, 400, error.message)
+    }
+});
 
 module.exports = router;
