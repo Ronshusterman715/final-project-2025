@@ -12,7 +12,7 @@ const Address = new mongoose.Schema({
     },
     floor: {
         type: Number,
-        min: 1,
+        min: 0,
     },
 });
 
