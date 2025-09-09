@@ -20,7 +20,8 @@ router.post('/', auth, async (req, res) => {
             return createError("validation", errorMassage, 400)
         }
 
-        let club = await createClub(req.body);
+        let normalizedClub = normalizeClub(req.body, userInfo._id);
+        let club = await createClub(normalizedClub);
         res.status(201).send(club);
     } catch (error) {
         return handleError(res, error.status, error.message)

@@ -4,8 +4,8 @@ const normalizeClub = (rawClub, userId) => {
         ...rawClub,
         image: {
             //TODO: change default image when decide which club
-            url: rawClub.image_url || "/images/ChatGPT-general-club-Image.png",
-            alt: rawClub.image_alt || `${rawClub.title} club image`,
+            url: rawClub.image.url || "/images/ChatGPT-general-club-Image.png",
+            alt: rawClub.image.alt || `${rawClub.title} club image`,
         },
         userId: rawClub.user_id || userId,
     }
