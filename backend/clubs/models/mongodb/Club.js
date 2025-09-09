@@ -15,6 +15,7 @@ const clubSchema = new mongoose.Schema({
     },
     phone: PHONE_VALIDATION,
     email: EMAIL_VALIDATION,
+    openDays: DEFAULT_VALIDATION,
     openHours: DEFAULT_VALIDATION,
     image: Image,
     address: Address,

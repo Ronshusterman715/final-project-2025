@@ -10,6 +10,7 @@ const clubValidate = (club) => {
         email: joi.string().trim().lowercase().ruleset.regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).rule({
             message: "Invalid email format"
         }).required(),
+        openDays: joi.string().min(2).max(256).required(),
         openHours: joi.string().min(2).max(256).required(),
         image: joi.object({
             url: joi.string().trim().lowercase().ruleset.regex(
