@@ -1,5 +1,6 @@
 import type { FunctionComponent } from "react";
 import type { Club } from "../../interfaces/clubs/Club";
+import { buildCompleteUrl } from "../../utils/imageUrlResolver";
 
 interface ClubCardProps {
   club: Club;
@@ -17,7 +18,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({ club }) => {
       >
         <img
           className="card-img-top"
-          src={club.image.url}
+          src={buildCompleteUrl(club.image.url)}
           alt={club.image.alt}
           style={{
             width: "100%",
