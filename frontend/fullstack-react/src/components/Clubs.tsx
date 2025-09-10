@@ -1,6 +1,7 @@
 import { useEffect, useState, type FunctionComponent } from "react";
 import type { Club } from "../interfaces/clubs/Club";
 import { getAllClubs } from "../services/clubsService";
+import ClubCard from "./clubs/ClubCard";
 
 interface ClubsProps {}
 
@@ -13,14 +14,13 @@ const Clubs: FunctionComponent<ClubsProps> = () => {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <>
-      {clubs.map((club: Club) => (
-        <ul key={club._id}>
-          <li>{club.name}</li>
-          <li>{club.description}</li>
-        </ul>
-      ))}
-    </>
+    <div className="container">
+      <div className="row d-flex justify-content-center">
+        {clubs.map((club) => (
+          <ClubCard key={club._id} club={club} />
+        ))}
+      </div>
+    </div>
   );
 };
 

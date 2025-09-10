@@ -9,6 +9,7 @@ export interface Club {
   ageRequirement: string;
   phone: string;
   email: string;
+  openDays: string;
   openHours: string;
   image: Image;
   address: Address;
