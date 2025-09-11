@@ -2,6 +2,8 @@ import type { FunctionComponent } from "react";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { useFormik, type FormikValues } from "formik";
+import { loginUser } from "../services/authService";
+import { normalizeAuth } from "../utils/auth/normalizeAuth";
 
 interface LoginProps {}
 
@@ -31,7 +33,13 @@ const Login: FunctionComponent<LoginProps> = () => {
         .required("Password is required"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      const normalizedAuth = normalizeAuth(values);
+      loginUser(normalizedAuth)
+        .then((res) => {
+          sessionStorage.setItem("token", res.data);
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
       resetForm();
     },
   });
