@@ -1,0 +1,10 @@
+import type { UserImage } from "./UserImage";
+import type { UserName } from "./UserName";
+
+export interface User {
+  name: UserName;
+  phone: string;
+  email: string;
+  password: string;
+  image: UserImage;
+}
