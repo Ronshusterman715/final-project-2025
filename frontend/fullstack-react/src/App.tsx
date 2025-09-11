@@ -1,7 +1,7 @@
 import "./App.css";
 import Clubs from "./components/Clubs";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import RegisterForm from "./components/RegisterForm";
+import RegisterForm from "./components/Register";
 
 function App() {
   return (

@@ -1,10 +1,12 @@
 import { useFormik, type FormikValues } from "formik";
 import type { FunctionComponent } from "react";
 import * as yup from "yup";
+import { normalizeUser } from "../utils/users/normalizeUser";
+import { registerUser } from "../services/usersService";
 
-interface RegisterFormProps {}
+interface RegisterProps {}
 
-const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
+const Register: FunctionComponent<RegisterProps> = () => {
   const formik: FormikValues = useFormik<FormikValues>({
     initialValues: {
       first: "",
@@ -63,7 +65,13 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
       alt: yup.string().min(2, "Too Short!").max(256, "Too Long!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      const normalizedUser = normalizeUser(values);
+      console.log(normalizedUser);
+      registerUser(normalizedUser)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
       resetForm();
     },
   });
@@ -262,4 +270,4 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
   );
 };
 
-export default RegisterForm;
+export default Register;
