@@ -1,6 +1,6 @@
 import type { FunctionComponent } from "react";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik, type FormikValues } from "formik";
 import { loginUser } from "../services/authService";
 import { normalizeAuth } from "../utils/auth/normalizeAuth";
@@ -8,6 +8,7 @@ import { normalizeAuth } from "../utils/auth/normalizeAuth";
 interface LoginProps {}
 
 const Login: FunctionComponent<LoginProps> = () => {
+  const navigate = useNavigate();
   const formik: FormikValues = useFormik<FormikValues>({
     initialValues: {
       email: "",
@@ -37,7 +38,7 @@ const Login: FunctionComponent<LoginProps> = () => {
       loginUser(normalizedAuth)
         .then((res) => {
           sessionStorage.setItem("token", res.data);
-          console.log(res.data);
+          navigate("/");
         })
         .catch((err) => console.log(err));
       resetForm();

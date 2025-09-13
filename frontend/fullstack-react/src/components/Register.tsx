@@ -3,6 +3,7 @@ import type { FunctionComponent } from "react";
 import * as yup from "yup";
 import { normalizeUser } from "../utils/users/normalizeUser";
 import { registerUser } from "../services/usersService";
+import { errorMessage, successMessage } from "../utils/ui/alert";
 
 interface RegisterProps {}
 
@@ -66,12 +67,14 @@ const Register: FunctionComponent<RegisterProps> = () => {
     }),
     onSubmit: (values, { resetForm }) => {
       const normalizedUser = normalizeUser(values);
-      console.log(normalizedUser);
       registerUser(normalizedUser)
         .then((res) => {
-          console.log(res);
+          successMessage(`${res.data.email} registered successfully`);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          errorMessage(`failed to create user - ${err.response.data}`);
+        });
       resetForm();
     },
   });
