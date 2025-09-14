@@ -1,12 +1,18 @@
-import type { FunctionComponent } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, type FunctionComponent } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 interface NavbarProps {}
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
   const userString = sessionStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
+  const navigate = useNavigate();
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    navigate(`/?search=${searchQuery}`);
+  };
   return (
     <>
       <nav
@@ -131,7 +137,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   type="search"
                   placeholder="Search..."
                   aria-label="Search"
-                  //   onChange={handleSearchChange}
+                  onChange={handleSearchChange}
                 />
               </div>
             </div>
