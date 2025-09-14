@@ -1,17 +1,28 @@
 import { useState, type FunctionComponent } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
-interface NavbarProps {}
+interface NavbarProps {
+  logoutEvent: () => void;
+}
 
-const Navbar: FunctionComponent<NavbarProps> = () => {
+const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
   const userString = sessionStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const logout = () => {
+    logoutEvent();
+  };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    navigate(`/?search=${searchQuery}`);
+    const value = e.target.value;
+
+    if (value.trim()) {
+      navigate(`/?search=${value}`);
+    } else {
+      navigate("/");
+    }
   };
   return (
     <>
@@ -77,7 +88,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                       Account Details
                     </NavLink>
                   </li>
-                  {user && user.isAdmin && (
+                  {user.isAdmin && (
                     <>
                       <li className="nav-item">
                         <NavLink
@@ -137,6 +148,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                   type="search"
                   placeholder="Search..."
                   aria-label="Search"
+                  value={searchParams.get("search") || ""}
                   onChange={handleSearchChange}
                 />
               </div>
@@ -173,7 +185,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                 </div>
                 <NavLink
                   className="btn btn-outline-danger btn-sm"
-                  //   onClick={logout}
+                  onClick={logout}
                   title="Logout"
                   to="/login"
                 >

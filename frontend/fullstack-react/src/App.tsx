@@ -5,19 +5,38 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
+import { decodeToken } from "./hooks/useJwtDecoder";
+import { useState } from "react";
 
 function App() {
+  const [jwtToken, setJwtToken] = useState<string | null>(
+    sessionStorage.getItem("token")
+  );
+
+  decodeToken(jwtToken);
+
+  const loginEvent = () => {
+    const token = sessionStorage.getItem("token");
+    setJwtToken(token);
+  };
+
+  const logoutEvent = () => {
+    setJwtToken(null);
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+  };
+
   return (
     <>
       <ToastContainer />
       <div>
         <Router>
-          <Navbar />
+          <Navbar logoutEvent={logoutEvent} />
           <Routes>
             {/* TODO: create main page based on the instructions make its path "/" and change the clubs route to path "/clubs" */}
             <Route path="/" element={<Clubs />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login loginEvent={loginEvent} />} />
           </Routes>
         </Router>
       </div>

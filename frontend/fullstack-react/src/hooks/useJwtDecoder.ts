@@ -7,11 +7,10 @@ export function decodeToken(token: string | null) {
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-
     if (!token) {
-      setError("No token found");
-      errorMessage("Please login");
+      setDecodedToken(null);
+      setError(null);
+      sessionStorage.removeItem("user");
       return;
     }
 

@@ -4,11 +4,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik, type FormikValues } from "formik";
 import { loginUser } from "../services/authService";
 import { normalizeAuth } from "../utils/auth/normalizeAuth";
+import { errorMessage } from "../utils/ui/alert";
 
-interface LoginProps {}
+interface LoginProps {
+  loginEvent: () => void;
+}
 
-const Login: FunctionComponent<LoginProps> = () => {
+const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
   const navigate = useNavigate();
+
+  const handleSubmit = async (values: FormikValues) => {
+    try {
+      const auth = normalizeAuth(values);
+      const authResponse = await loginUser(auth);
+      sessionStorage.setItem("token", authResponse.data);
+      navigate("/");
+      loginEvent();
+    } catch (error) {
+      errorMessage("Invalid email or password");
+      console.log(error);
+    }
+  };
+
   const formik: FormikValues = useFormik<FormikValues>({
     initialValues: {
       email: "",
@@ -33,16 +50,7 @@ const Login: FunctionComponent<LoginProps> = () => {
         )
         .required("Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      const normalizedAuth = normalizeAuth(values);
-      loginUser(normalizedAuth)
-        .then((res) => {
-          sessionStorage.setItem("token", res.data);
-          navigate("/");
-        })
-        .catch((err) => console.log(err));
-      resetForm();
-    },
+    onSubmit: handleSubmit,
   });
   return (
     <>
