@@ -58,7 +58,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                         "nav-link" + (isActive ? " active" : "")
                       }
                     >
-                      Fav Cards
+                      Fav Clubs
                     </NavLink>
                   </li>
                   <li className="nav-item">
@@ -75,22 +75,22 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
                     <>
                       <li className="nav-item">
                         <NavLink
-                          to="/cards/create"
+                          to="/clubs/create"
                           className={({ isActive }) =>
                             "nav-link" + (isActive ? " active" : "")
                           }
                         >
-                          Create Card
+                          Create Club
                         </NavLink>
                       </li>
                       <li className="nav-item">
                         <NavLink
-                          to="mycards"
+                          to="myclubs"
                           className={({ isActive }) =>
                             "nav-link" + (isActive ? " active" : "")
                           }
                         >
-                          My Cards
+                          My Clubs
                         </NavLink>
                       </li>
                     </>
