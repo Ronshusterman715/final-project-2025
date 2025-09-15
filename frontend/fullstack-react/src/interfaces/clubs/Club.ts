@@ -6,13 +6,13 @@ export interface Club {
   name: string;
   description: string;
   type: string;
-  ageRequirement: string;
   phone: string;
   email: string;
+  ageRequirement: string;
   openDays: string;
   openHours: string;
   image: Image;
   address: Address;
-  likes: string[];
+  likes?: string[];
   createdAt?: Date;
 }

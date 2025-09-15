@@ -5,11 +5,11 @@ const clubValidate = (club) => {
         name: joi.string().min(2).max(256).required(),
         description: joi.string().min(2).max(1024).required(),
         type: joi.string().min(2).max(256).required(),
-        ageRequirement: joi.string().min(1).max(11).required(),
         phone: joi.string().ruleset.regex(/^(?:\+972|0)(5\d|([2-4]|[7-9]))-?\d{7}$/).rule({ message: 'Invalid israel phone number' }).required(),
         email: joi.string().trim().lowercase().ruleset.regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/).rule({
             message: "Invalid email format"
         }).required(),
+        ageRequirement: joi.string().min(1).max(11).required(),
         openDays: joi.string().min(2).max(256).required(),
         openHours: joi.string().min(2).max(256).required(),
         image: joi.object({

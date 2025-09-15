@@ -1,4 +1,4 @@
-import { useState, type FunctionComponent } from "react";
+import type { FunctionComponent } from "react";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
 interface NavbarProps {

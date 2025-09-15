@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       config.headers["x-auth-token"] = token;
     }
@@ -26,7 +26,7 @@ axios.interceptors.response.use(
   },
   async (err) => {
     if (err.response && err.response.status === 401) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       window.location.href = "/login";
     }
     return Promise.reject(err);
