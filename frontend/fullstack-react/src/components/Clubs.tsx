@@ -46,6 +46,11 @@ const Clubs: FunctionComponent<ClubsProps> = () => {
     };
     loadAndFilterClubs();
   }, [searchQuery, clubs]);
+
+  const onRemoveFromView = (cardId: string) => {
+    setClubs(clubs.filter((club) => club._id !== cardId));
+    setFilteredClubs(filteredClubs.filter((club) => club._id !== cardId));
+  };
   return (
     <>
       {isClubLoading ? (
@@ -58,7 +63,11 @@ const Clubs: FunctionComponent<ClubsProps> = () => {
         <div className="container">
           <div className="row d-flex justify-content-center">
             {filteredClubs.map((club) => (
-              <ClubCard key={club._id} club={club} />
+              <ClubCard
+                key={club._id}
+                club={club}
+                onRemoveFromView={onRemoveFromView}
+              />
             ))}
           </div>
         </div>

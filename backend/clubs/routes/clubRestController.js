@@ -115,14 +115,3 @@ router.patch('/:id', auth, async (req, res) => {
 });
 
 module.exports = router;
-
-
-// TODO: remove REST Client test below
-// GET http://localhost:3000/clubs
-
-// POST http://localhost:3000/
-// Content-Type: application/json
-
-// {
-
-// }

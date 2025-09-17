@@ -1,12 +1,56 @@
-import type { FunctionComponent } from "react";
+import { useState, type FunctionComponent } from "react";
 import type { Club } from "../../interfaces/clubs/Club";
 import { buildCompleteUrl } from "../../utils/imageUrlResolver";
+import { errorMessage, successMessage } from "../../utils/ui/alert";
+import { deleteClub, likeUnlikeClub } from "../../services/clubsService";
 
 interface ClubCardProps {
   club: Club;
+  onRemoveFromView: (cardId: string) => void;
 }
 
-const ClubCard: FunctionComponent<ClubCardProps> = ({ club }) => {
+const ClubCard: FunctionComponent<ClubCardProps> = ({
+  club,
+  onRemoveFromView,
+}) => {
+  const userString = sessionStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
+  const [isUserLiked, setIsUserLiked] = useState<boolean>(
+    user && club.likes?.includes(user._id || false)
+  );
+
+  const handleClubDelete = async () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this club?"
+    );
+
+    if (!isConfirmed) return;
+
+    try {
+      const deleteClubResponse = await deleteClub(club._id!);
+      onRemoveFromView(club._id!);
+      successMessage(`${deleteClubResponse.data.name} deleted successfully`);
+    } catch (error: any) {
+      if (error.response.data) {
+        errorMessage(`Failed to delete club: ${error.response.data}`);
+      } else {
+        errorMessage("Failed to delete club");
+      }
+    }
+  };
+
+  const handleLikeUnlikeClick = async () => {
+    try {
+      const patchClubResponse = await likeUnlikeClub(club._id!);
+      setIsUserLiked(!isUserLiked);
+    } catch (error: any) {
+      if (error.response.data) {
+        errorMessage(`Failed to like/unlike club: ${error.response.data}`);
+      } else {
+        errorMessage("Failed to like/unlike club");
+      }
+    }
+  };
   return (
     <div
       className="card m-3 shadow-sm club-card"
@@ -92,12 +136,43 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({ club }) => {
         >
           <i className="fa-solid fa-envelope"></i>
         </a>
-        <button className="btn btn-sm btn-outline-secondary">
-          <i className="fa-regular fa-heart"></i>
-        </button>
+
+        {user && isUserLiked && (
+          <a
+            onClick={handleLikeUnlikeClick}
+            className="btn btn-sm btn-outline-danger"
+            title="Unlike Club"
+            style={{ cursor: "pointer" }}
+          >
+            <i className="fa-solid fa-heart"></i>
+          </a>
+        )}
+
+        {user && !isUserLiked && (
+          <a
+            onClick={handleLikeUnlikeClick}
+            className="btn btn-sm btn-outline-secondary"
+            title="Like Club"
+            style={{ cursor: "pointer" }}
+          >
+            <i className="fa-solid fa-heart"></i>
+          </a>
+        )}
+
+        {user && user.isAdmin && (
+          <>
+            <a
+              onClick={handleClubDelete}
+              className="btn btn-sm btn-outline-danger"
+              title="Delete Club"
+              style={{ cursor: "pointer" }}
+            >
+              <i className="fa-solid fa-trash"></i>
+            </a>
+          </>
+        )}
       </div>
     </div>
   );
 };
-
 export default ClubCard;

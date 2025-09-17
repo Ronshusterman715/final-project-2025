@@ -10,3 +10,13 @@ export async function getAllClubs() {
 export async function createClub(club: Club) {
   return await axiosInstance.post("/clubs", club);
 }
+
+//Delete club
+export async function deleteClub(id: string) {
+  return await axiosInstance.delete(`/clubs/${id}`);
+}
+
+//Like/unlike club
+export async function likeUnlikeClub(id: string) {
+  return await axiosInstance.patch(`/clubs/${id}`);
+}
