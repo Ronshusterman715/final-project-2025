@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import { decodeToken } from "./hooks/useJwtDecoder";
 import { useState } from "react";
 import CreateClub from "./components/CreateClub";
+import ClubDetails from "./components/ClubDetails";
 
 function App() {
   const [jwtToken, setJwtToken] = useState<string | null>(
@@ -39,6 +40,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login loginEvent={loginEvent} />} />
             <Route path="/clubs/create" element={<CreateClub />} />
+            <Route path="/ClubDetails/:id/" element={<ClubDetails />} />
           </Routes>
         </Router>
       </div>

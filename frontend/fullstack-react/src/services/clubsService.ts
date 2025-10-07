@@ -5,6 +5,10 @@ import axiosInstance from "../utils/interceptors/axios-interceptor";
 export async function getAllClubs() {
   return await axiosInstance.get("/clubs");
 }
+//Get club by id
+export function getClubById(id: string) {
+  return axiosInstance.get(`/clubs/${id}`);
+}
 
 //Create club
 export async function createClub(club: Club) {
