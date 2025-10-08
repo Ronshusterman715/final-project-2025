@@ -9,6 +9,7 @@ import { decodeToken } from "./hooks/useJwtDecoder";
 import { useState } from "react";
 import CreateClub from "./components/CreateClub";
 import ClubDetails from "./components/ClubDetails";
+import FavoriteClubs from "./components/FavoriteClubs";
 
 function App() {
   const [jwtToken, setJwtToken] = useState<string | null>(
@@ -41,6 +42,7 @@ function App() {
             <Route path="/login" element={<Login loginEvent={loginEvent} />} />
             <Route path="/clubs/create" element={<CreateClub />} />
             <Route path="/ClubDetails/:id/" element={<ClubDetails />} />
+            <Route path="/favorites" element={<FavoriteClubs />} />
           </Routes>
         </Router>
       </div>

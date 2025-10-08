@@ -70,7 +70,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                 <>
                   <li className="nav-item">
                     <NavLink
-                      to="/favclubs"
+                      to="/favorites"
                       className={({ isActive }) =>
                         "nav-link" + (isActive ? " active" : "")
                       }

@@ -75,11 +75,22 @@ const likeClub = async (clubId, userId) => {
     }
 };
 
+//Get favorite clubs by user ID
+const getFavoriteClubs = async (userId) => {
+    try {
+        let clubs = await Club.find({ likes: userId });
+        return clubs;
+    } catch (error) {
+        return createError("Mongoose", error.message)
+    }
+};
+
 module.exports = {
     createClub,
     getAllClubs,
     getClubById,
     updateClub,
     deleteClub,
-    likeClub
+    likeClub,
+    getFavoriteClubs
 }

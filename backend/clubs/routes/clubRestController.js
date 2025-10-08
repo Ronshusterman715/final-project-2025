@@ -1,9 +1,10 @@
 const express = require('express');
-const { createClub, getAllClubs, getClubById, updateClub, deleteClub, likeClub } = require('../models/clubsAccessDataService');
+const { createClub, getAllClubs, getClubById, updateClub, deleteClub, likeClub, getFavoriteClubs } = require('../models/clubsAccessDataService');
 const { handleError, createError } = require('../../utils/handleErrors');
 const auth = require('../../auth/authService');
 const { normalizeClub } = require('../helpers/normalizeClub');
 const { clubValidation } = require('../validation/clubValidationService');
+const { string } = require('joi');
 
 const router = express.Router();
 
@@ -38,6 +39,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+//Get favorite clubs for logged in users
+router.get('/favorites', auth, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        let clubs = await getFavoriteClubs(userId);
+        res.status(200).send(clubs);
+    } catch (error) {
+        return handleError(res, error.status, error.message)
+    }
+});
 
 //Get club by id
 router.get('/:id', async (req, res) => {

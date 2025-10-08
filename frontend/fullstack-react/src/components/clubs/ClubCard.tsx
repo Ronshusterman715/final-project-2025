@@ -46,8 +46,13 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
 
   const handleLikeUnlikeClick = async () => {
     try {
-      const patchClubResponse = await likeUnlikeClub(club._id!);
+      const wasLiked = isUserLiked;
+      await likeUnlikeClub(club._id!);
       setIsUserLiked(!isUserLiked);
+
+      if (wasLiked) {
+        onRemoveFromView(club._id!);
+      }
     } catch (error: any) {
       if (error.response.data) {
         errorMessage(`Failed to like/unlike club: ${error.response.data}`);

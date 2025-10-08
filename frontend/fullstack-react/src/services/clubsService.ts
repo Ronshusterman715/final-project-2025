@@ -24,3 +24,8 @@ export async function deleteClub(id: string) {
 export async function likeUnlikeClub(id: string) {
   return await axiosInstance.patch(`/clubs/${id}`);
 }
+
+//Get favorite clubs
+export async function getFavoriteClubs() {
+  return await axiosInstance.get("/clubs/favorites");
+}
