@@ -17,7 +17,7 @@ export async function createClub(club: Club) {
 
 //Update club
 export async function updateClub(id: string, club: Club) {
-  return await axiosInstance.patch(`/clubs/${id}`, club);
+  return await axiosInstance.put(`/clubs/${id}`, club);
 }
 
 //Delete club
