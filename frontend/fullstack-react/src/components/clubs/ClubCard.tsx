@@ -44,6 +44,10 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
     }
   };
 
+  const handleClubEditClick = () => {
+    navigate(`/clubs/${club._id}/edit`, { state: club });
+  };
+
   const handleLikeUnlikeClick = async () => {
     try {
       const wasLiked = isUserLiked;
@@ -172,6 +176,14 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
 
         {user && user.isAdmin && (
           <>
+            <a
+              onClick={handleClubEditClick}
+              className="btn btn-sm btn-outline-warning"
+              title="Edit Club"
+              style={{ cursor: "pointer" }}
+            >
+              <i className="fa-solid fa-pen-to-square"></i>
+            </a>
             <a
               onClick={handleClubDelete}
               className="btn btn-sm btn-outline-danger"

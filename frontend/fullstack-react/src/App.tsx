@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import { decodeToken } from "./hooks/useJwtDecoder";
 import { useState } from "react";
-import CreateClub from "./components/CreateClub";
+import ClubForm from "./components/ClubForm";
 import ClubDetails from "./components/ClubDetails";
 import FavoriteClubs from "./components/FavoriteClubs";
 
@@ -40,7 +40,8 @@ function App() {
             <Route path="/" element={<Clubs />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login loginEvent={loginEvent} />} />
-            <Route path="/clubs/create" element={<CreateClub />} />
+            <Route path="/clubs/create" element={<ClubForm />} />
+            <Route path="/clubs/:id/edit" element={<ClubForm />} />
             <Route path="/ClubDetails/:id/" element={<ClubDetails />} />
             <Route path="/favorites" element={<FavoriteClubs />} />
           </Routes>
