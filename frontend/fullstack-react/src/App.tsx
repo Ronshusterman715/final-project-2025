@@ -35,6 +35,27 @@ function App() {
       });
   }, []);
 
+  const onLikeToggle = (clubId: string, isLiked: boolean) => {
+    const userString = sessionStorage.getItem("user");
+    const user = userString ? JSON.parse(userString) : null;
+
+    setClubs(
+      clubs.map((club) => {
+        if (club._id === clubId) {
+          let updatedLikes: string[];
+
+          if (isLiked) {
+            updatedLikes = [...(club.likes || []), user?._id];
+          } else {
+            updatedLikes = (club.likes || []).filter((id) => id !== user?._id);
+          }
+          return { ...club, likes: updatedLikes };
+        }
+        return club;
+      })
+    );
+  };
+
   const onRemoveFromView = (clubId: string) => {
     setClubs(clubs.filter((club) => club._id !== clubId));
   };
@@ -66,6 +87,7 @@ function App() {
                   clubs={clubs}
                   isClubsLoading={isClubsLoading}
                   onRemoveFromView={onRemoveFromView}
+                  onLikeToggle={onLikeToggle}
                 />
               }
             />
@@ -76,6 +98,7 @@ function App() {
                   clubs={clubs}
                   isClubsLoading={isClubsLoading}
                   onRemoveFromView={onRemoveFromView}
+                  onLikeToggle={onLikeToggle}
                 />
               }
             />
@@ -84,7 +107,10 @@ function App() {
             <Route path="/clubs/create" element={<ClubForm />} />
             <Route path="/clubs/:id/edit" element={<ClubForm />} />
             <Route path="/ClubDetails/:id/" element={<ClubDetails />} />
-            <Route path="/favorites" element={<FavoriteClubs />} />
+            <Route
+              path="/favorites"
+              element={<FavoriteClubs onLikeToggle={onLikeToggle} />}
+            />
           </Routes>
         </Router>
       </div>

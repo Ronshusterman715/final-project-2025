@@ -6,12 +6,14 @@ interface MainPage {
   clubs: Club[];
   isClubsLoading: boolean;
   onRemoveFromView: (clubId: string) => void;
+  onLikeToggle: (clubId: string, isLiked: boolean) => void;
 }
 
 const MainPage: FunctionComponent<MainPage> = ({
   clubs,
   isClubsLoading,
   onRemoveFromView,
+  onLikeToggle,
 }) => {
   const topClubs = useMemo(() => {
     return [...clubs]
@@ -61,6 +63,7 @@ const MainPage: FunctionComponent<MainPage> = ({
                   key={club._id}
                   club={club}
                   onRemoveFromView={onRemoveFromView}
+                  onLikeToggle={onLikeToggle}
                 />
               ))}
             </div>

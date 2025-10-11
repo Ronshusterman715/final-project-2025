@@ -4,9 +4,13 @@ import type { Club } from "../interfaces/clubs/Club";
 import { getFavoriteClubs } from "../services/clubsService";
 import { errorMessage } from "../utils/ui/alert";
 
-interface FavoriteClubsProps {}
+interface FavoriteClubsProps {
+  onLikeToggle: (clubId: string, isLiked: boolean) => void;
+}
 
-const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = () => {
+const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
+  onLikeToggle,
+}) => {
   const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([]);
   const [isClubLoading, setIsClubLoading] = useState<boolean>(true);
 
@@ -47,6 +51,7 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = () => {
             key={club._id}
             club={club}
             onRemoveFromView={onRemoveFromView}
+            onLikeToggle={onLikeToggle}
           />
         ))}
       </div>

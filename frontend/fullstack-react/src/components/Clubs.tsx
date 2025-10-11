@@ -9,12 +9,14 @@ interface ClubsProps {
   clubs: Club[];
   isClubsLoading: boolean;
   onRemoveFromView: (clubId: string) => void;
+  onLikeToggle: (clubId: string, isLiked: boolean) => void;
 }
 
 const Clubs: FunctionComponent<ClubsProps> = ({
   clubs,
   onRemoveFromView,
   isClubsLoading,
+  onLikeToggle,
 }) => {
   const [filteredClubs, setFilteredClubs] = useState<Club[]>([]);
   const [searchParams] = useSearchParams();
@@ -31,20 +33,18 @@ const Clubs: FunctionComponent<ClubsProps> = ({
   ];
 
   useEffect(() => {
-    if (clubs.length === 0) {
-      try {
-        if (searchQuery) {
-          const filteredClubs = clubs.filter((club: Club) =>
-            club.name.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-          setFilteredClubs(filteredClubs);
-        } else {
-          setFilteredClubs(clubs);
-        }
-      } catch (error) {
-        console.log("Error loading clubs:", error);
-        errorMessage("failed to load clubs");
+    try {
+      if (searchQuery) {
+        const filteredClubs = clubs.filter((club: Club) =>
+          club.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredClubs(filteredClubs);
+      } else {
+        setFilteredClubs(clubs);
       }
+    } catch (error) {
+      console.log("Error loading clubs:", error);
+      errorMessage("failed to load clubs");
     }
   }, [searchQuery, clubs]);
 
@@ -124,6 +124,7 @@ const Clubs: FunctionComponent<ClubsProps> = ({
                 key={club._id}
                 club={club}
                 onRemoveFromView={onRemoveFromView}
+                onLikeToggle={onLikeToggle}
               />
             ))}
           </div>

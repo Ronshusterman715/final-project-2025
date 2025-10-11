@@ -8,11 +8,13 @@ import { useNavigate } from "react-router-dom";
 interface ClubCardProps {
   club: Club;
   onRemoveFromView: (cardId: string) => void;
+  onLikeToggle: (clubId: string, isLiked: boolean) => void;
 }
 
 const ClubCard: FunctionComponent<ClubCardProps> = ({
   club,
   onRemoveFromView,
+  onLikeToggle,
 }) => {
   const navigate = useNavigate();
   const userString = sessionStorage.getItem("user");
@@ -52,7 +54,10 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
     try {
       const wasLiked = isUserLiked;
       await likeUnlikeClub(club._id!);
-      setIsUserLiked(!isUserLiked);
+
+      const newLikeState = !wasLiked;
+      setIsUserLiked(newLikeState);
+      onLikeToggle(club._id!, newLikeState);
 
       if (wasLiked) {
         onRemoveFromView(club._id!);
