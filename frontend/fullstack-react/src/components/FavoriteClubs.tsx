@@ -3,6 +3,7 @@ import ClubCard from "./clubs/ClubCard";
 import type { Club } from "../interfaces/clubs/Club";
 import { getFavoriteClubs } from "../services/clubsService";
 import { errorMessage } from "../utils/ui/alert";
+import { useClubActions } from "../hooks/useClubActions";
 
 interface FavoriteClubsProps {
   onLikeToggle: (clubId: string, isLiked: boolean) => void;
@@ -31,6 +32,16 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
     setFavoriteClubs(favoriteClubs.filter((club) => club._id !== cardId));
   };
 
+  const {
+    handleClubClick,
+    handleClubDelete,
+    handleClubEditClick,
+    handleLikeUnlikeClick,
+  } = useClubActions({
+    onRemoveFromView,
+    onLikeToggle,
+  });
+
   //TODO make the loading function/logic the same everywhere.
   if (isClubLoading) {
     return (
@@ -50,8 +61,10 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
           <ClubCard
             key={club._id}
             club={club}
-            onRemoveFromView={onRemoveFromView}
-            onLikeToggle={onLikeToggle}
+            onClubClick={handleClubClick}
+            onClubDelete={handleClubDelete}
+            onClubEditClick={handleClubEditClick}
+            onLikeUnlikeClick={handleLikeUnlikeClick}
           />
         ))}
       </div>

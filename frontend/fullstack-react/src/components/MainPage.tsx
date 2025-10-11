@@ -1,6 +1,7 @@
 import { useMemo, type FunctionComponent } from "react";
 import type { Club } from "../interfaces/clubs/Club";
 import ClubCard from "./clubs/ClubCard";
+import { useClubActions } from "../hooks/useClubActions";
 
 interface MainPage {
   clubs: Club[];
@@ -15,6 +16,16 @@ const MainPage: FunctionComponent<MainPage> = ({
   onRemoveFromView,
   onLikeToggle,
 }) => {
+  const {
+    handleClubClick,
+    handleClubDelete,
+    handleClubEditClick,
+    handleLikeUnlikeClick,
+  } = useClubActions({
+    onRemoveFromView,
+    onLikeToggle,
+  });
+
   const topClubs = useMemo(() => {
     return [...clubs]
       .sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0))
@@ -62,8 +73,10 @@ const MainPage: FunctionComponent<MainPage> = ({
                 <ClubCard
                   key={club._id}
                   club={club}
-                  onRemoveFromView={onRemoveFromView}
-                  onLikeToggle={onLikeToggle}
+                  onClubClick={handleClubClick}
+                  onClubDelete={handleClubDelete}
+                  onClubEditClick={handleClubEditClick}
+                  onLikeUnlikeClick={handleLikeUnlikeClick}
                 />
               ))}
             </div>

@@ -1,81 +1,32 @@
-import { useState, type FunctionComponent } from "react";
+import { type FunctionComponent } from "react";
 import type { Club } from "../../interfaces/clubs/Club";
 import { buildCompleteUrl } from "../../utils/imageUrlResolver";
-import { errorMessage, successMessage } from "../../utils/ui/alert";
-import { deleteClub, likeUnlikeClub } from "../../services/clubsService";
-import { useNavigate } from "react-router-dom";
 
 interface ClubCardProps {
   club: Club;
-  onRemoveFromView: (cardId: string) => void;
-  onLikeToggle: (clubId: string, isLiked: boolean) => void;
+  onClubClick: (club: Club) => void;
+  onClubDelete: (club: Club) => void;
+  onClubEditClick: (club: Club) => void;
+  onLikeUnlikeClick: (club: Club) => void;
 }
 
 const ClubCard: FunctionComponent<ClubCardProps> = ({
   club,
-  onRemoveFromView,
-  onLikeToggle,
+  onClubClick,
+  onClubDelete,
+  onClubEditClick,
+  onLikeUnlikeClick,
 }) => {
-  const navigate = useNavigate();
   const userString = sessionStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
-  const [isUserLiked, setIsUserLiked] = useState<boolean>(
-    user && club.likes?.includes(user._id || false)
-  );
+  const isUserLiked = user && club.likes?.includes(user._id);
 
-  const handleClubClick = () => {
-    navigate(`/ClubDetails/${club._id}`, { state: club });
-  };
-  const handleClubDelete = async () => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this club?"
-    );
-
-    if (!isConfirmed) return;
-
-    try {
-      const deleteClubResponse = await deleteClub(club._id!);
-      onRemoveFromView(club._id!);
-      successMessage(`${deleteClubResponse.data.name} deleted successfully`);
-    } catch (error: any) {
-      if (error.response.data) {
-        errorMessage(`Failed to delete club: ${error.response.data}`);
-      } else {
-        errorMessage("Failed to delete club");
-      }
-    }
-  };
-
-  const handleClubEditClick = () => {
-    navigate(`/clubs/${club._id}/edit`, { state: club });
-  };
-
-  const handleLikeUnlikeClick = async () => {
-    try {
-      const wasLiked = isUserLiked;
-      await likeUnlikeClub(club._id!);
-
-      const newLikeState = !wasLiked;
-      setIsUserLiked(newLikeState);
-      onLikeToggle(club._id!, newLikeState);
-
-      if (wasLiked) {
-        onRemoveFromView(club._id!);
-      }
-    } catch (error: any) {
-      if (error.response.data) {
-        errorMessage(`Failed to like/unlike club: ${error.response.data}`);
-      } else {
-        errorMessage("Failed to like/unlike club");
-      }
-    }
-  };
   return (
     <div
       className="card m-3 shadow-sm club-card"
       style={{ width: "18rem", height: "100%" }}
     >
-      <div onClick={handleClubClick} style={{ cursor: "pointer" }}>
+      <div onClick={() => onClubClick(club)} style={{ cursor: "pointer" }}>
         <div
           className="card-image-container"
           style={{ height: "180px", overflow: "hidden" }}
@@ -159,7 +110,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
 
         {user && isUserLiked && (
           <a
-            onClick={handleLikeUnlikeClick}
+            onClick={() => onLikeUnlikeClick(club)}
             className="btn btn-sm btn-outline-danger"
             title="Unlike Club"
             style={{ cursor: "pointer" }}
@@ -170,7 +121,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
 
         {user && !isUserLiked && (
           <a
-            onClick={handleLikeUnlikeClick}
+            onClick={() => onLikeUnlikeClick(club)}
             className="btn btn-sm btn-outline-secondary"
             title="Like Club"
             style={{ cursor: "pointer" }}
@@ -182,7 +133,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
         {user && user.isAdmin && (
           <>
             <a
-              onClick={handleClubEditClick}
+              onClick={() => onClubEditClick(club)}
               className="btn btn-sm btn-outline-warning"
               title="Edit Club"
               style={{ cursor: "pointer" }}
@@ -190,7 +141,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
               <i className="fa-solid fa-pen-to-square"></i>
             </a>
             <a
-              onClick={handleClubDelete}
+              onClick={() => onClubDelete(club)}
               className="btn btn-sm btn-outline-danger"
               title="Delete Club"
               style={{ cursor: "pointer" }}

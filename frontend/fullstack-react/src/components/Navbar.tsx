@@ -111,16 +111,6 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                           Create Club
                         </NavLink>
                       </li>
-                      <li className="nav-item">
-                        <NavLink
-                          to="myclubs"
-                          className={({ isActive }) =>
-                            "nav-link" + (isActive ? " active" : "")
-                          }
-                        >
-                          My Clubs
-                        </NavLink>
-                      </li>
                     </>
                   )}
                 </>

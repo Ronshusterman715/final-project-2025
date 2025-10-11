@@ -4,6 +4,8 @@ import ClubCard from "./clubs/ClubCard";
 import { useSearchParams } from "react-router-dom";
 import { errorMessage } from "../utils/ui/alert";
 import ClubFilters from "./clubs/ClubFilters";
+import ClubTable from "./clubs/ClubTable";
+import { useClubActions } from "../hooks/useClubActions";
 
 interface ClubsProps {
   clubs: Club[];
@@ -18,7 +20,17 @@ const Clubs: FunctionComponent<ClubsProps> = ({
   isClubsLoading,
   onLikeToggle,
 }) => {
+  const {
+    handleClubClick,
+    handleClubDelete,
+    handleClubEditClick,
+    handleLikeUnlikeClick,
+  } = useClubActions({
+    onRemoveFromView,
+    onLikeToggle,
+  });
   const [filteredClubs, setFilteredClubs] = useState<Club[]>([]);
+  const [viewMode, setViewMode] = useState<string>("card");
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
 
@@ -47,6 +59,11 @@ const Clubs: FunctionComponent<ClubsProps> = ({
       errorMessage("failed to load clubs");
     }
   }, [searchQuery, clubs]);
+
+  const toggleViewMode = () => {
+    const newViewMode = viewMode === "card" ? "table" : "card";
+    setViewMode(newViewMode);
+  };
 
   const handleFilterChange = (filters: {
     type: string;
@@ -88,6 +105,7 @@ const Clubs: FunctionComponent<ClubsProps> = ({
     }
     setFilteredClubs(result);
   };
+
   return (
     <>
       {showFilters && (
@@ -110,25 +128,53 @@ const Clubs: FunctionComponent<ClubsProps> = ({
         <div className="container my-3">
           <div className="d-flex justify-content-center align-items-center mb-4 position-relative">
             <h1 className="mb-0">Clubs</h1>
-            <button
-              className="btn btn-outline-primary position-absolute end-0"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <i className="fas fa-filter me-2"></i>
-              Filters
-            </button>
-          </div>
-          <div className="row d-flex justify-content-center">
-            {filteredClubs.map((club) => (
-              <ClubCard
-                key={club._id}
-                club={club}
-                onRemoveFromView={onRemoveFromView}
-                onLikeToggle={onLikeToggle}
-              />
-            ))}
+            <div className="position-absolute end-0 d-flex gap-2">
+              <button
+                className="btn btn-outline-primary"
+                onClick={toggleViewMode}
+                title={`Switch to ${
+                  viewMode === "card" ? "table" : "card"
+                } view`}
+              >
+                <i
+                  className={`fas fa-${
+                    viewMode === "card" ? "table" : "th"
+                  } me-2`}
+                ></i>
+                {viewMode === "card" ? "Table" : "Cards"}
+              </button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <i className="fas fa-filter me-2"></i>
+                Filters
+              </button>
+            </div>
           </div>
         </div>
+      )}
+      {viewMode === "card" ? (
+        <div className="row d-flex justify-content-center">
+          {filteredClubs.map((club) => (
+            <ClubCard
+              key={club._id}
+              club={club}
+              onClubClick={handleClubClick}
+              onClubDelete={handleClubDelete}
+              onClubEditClick={handleClubEditClick}
+              onLikeUnlikeClick={handleLikeUnlikeClick}
+            />
+          ))}
+        </div>
+      ) : (
+        <ClubTable
+          clubs={filteredClubs}
+          onClubClick={handleClubClick}
+          onClubDelete={handleClubDelete}
+          onClubEditClick={handleClubEditClick}
+          onLikeUnlikeClick={handleLikeUnlikeClick}
+        />
       )}
     </>
   );
