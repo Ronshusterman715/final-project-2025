@@ -40,6 +40,7 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
   } = useClubActions({
     onRemoveFromView,
     onLikeToggle,
+    shouldRemoveOnUnlike: true,
   });
 
   //TODO make the loading function/logic the same everywhere.

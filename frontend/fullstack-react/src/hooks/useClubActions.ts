@@ -6,11 +6,13 @@ import { errorMessage, successMessage } from "../utils/ui/alert";
 interface UseClubActionsProps {
   onRemoveFromView: (clubId: string) => void;
   onLikeToggle: (clubId: string, newLikeState: boolean) => void;
+  shouldRemoveOnUnlike?: boolean;
 }
 
 export const useClubActions = ({
   onRemoveFromView,
   onLikeToggle,
+  shouldRemoveOnUnlike = false,
 }: UseClubActionsProps) => {
   const navigate = useNavigate();
 
@@ -51,7 +53,7 @@ export const useClubActions = ({
       const newLikeState = !wasLiked;
       onLikeToggle(club._id!, newLikeState);
 
-      if (wasLiked) {
+      if (wasLiked && shouldRemoveOnUnlike) {
         onRemoveFromView(club._id!);
       }
     } catch (error: any) {

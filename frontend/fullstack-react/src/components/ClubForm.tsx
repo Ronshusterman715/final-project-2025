@@ -49,9 +49,8 @@ const ClubForm: FunctionComponent<ClubFormProps> = () => {
           console.error(err);
         });
     } else {
-      navigate("/");
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [id]);
 
   const handleCreateSubmit = async (values: FormikValues) => {
