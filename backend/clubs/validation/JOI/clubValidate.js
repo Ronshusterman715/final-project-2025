@@ -14,7 +14,7 @@ const clubValidate = (club) => {
         openHours: joi.string().min(2).max(256).required(),
         image: joi.object({
             url: joi.string().trim().lowercase().ruleset.regex(
-                /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/images\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/
+                /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/static\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/
             ).rule({ message: "Image must contain a valid url" }).allow(""),
             alt: joi.string().min(2).max(256).allow(""),
         }).required(),
