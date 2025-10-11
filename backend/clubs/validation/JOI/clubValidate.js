@@ -14,12 +14,11 @@ const clubValidate = (club) => {
         openHours: joi.string().min(2).max(256).required(),
         image: joi.object({
             url: joi.string().trim().lowercase().ruleset.regex(
-                match: RegExp(
-                    /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/images\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/
-                ),
+                /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/images\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/
             ).rule({ message: "Image must contain a valid url" }).allow(""),
-            alt: joi.string().min(2).max(256).allow(""),
-        }).required(),
+            ).rule({ message: "Image must contain a valid url" }).allow(""),
+        alt: joi.string().min(2).max(256).allow(""),
+    }).required(),
         address: joi.object({
             country: joi.string().min(2).max(256).required(),
             city: joi.string().min(2).max(256).required(),
@@ -28,7 +27,7 @@ const clubValidate = (club) => {
             floor: joi.number().min(0),
         }).required(),
     });
-    return schema.validate(club, { abortEarly: false });
+return schema.validate(club, { abortEarly: false });
 };
 
 module.exports = { clubValidate };
