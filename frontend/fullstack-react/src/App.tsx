@@ -14,6 +14,7 @@ import MainPage from "./components/MainPage";
 import { getAllClubs } from "./services/clubsService";
 import { errorMessage } from "./utils/ui/alert";
 import type { Club } from "./interfaces/clubs/Club";
+import About from "./components/About";
 
 function App() {
   const [jwtToken, setJwtToken] = useState<string | null>(
@@ -102,6 +103,7 @@ function App() {
                 />
               }
             />
+            <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login loginEvent={loginEvent} />} />
             <Route path="/clubs/create" element={<ClubForm />} />
