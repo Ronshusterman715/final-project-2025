@@ -1,4 +1,4 @@
-import type { FunctionComponent } from "react";
+import { useState, type FunctionComponent } from "react";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik, type FormikValues } from "formik";
@@ -12,6 +12,7 @@ interface LoginProps {
 
 const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values: FormikValues) => {
     try {
@@ -75,9 +76,9 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
             )}
           </div>
 
-          <div className="form-floating mb-3">
+          <div className="form-floating mb-3 position-relative">
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               className="form-control"
               id="password"
               placeholder="Enter your password"
@@ -88,6 +89,18 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
               value={formik.values.password}
             />
             <label htmlFor="password">Password</label>
+            <button
+              type="button"
+              className="btn btn-link position-absolute end-0 top-50 translate-middle-y"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                textDecoration: "none",
+                zIndex: 10,
+                marginTop: "-0.5rem",
+              }}
+            >
+              <i className={`fas fa-eye${showPassword ? "-slash" : ""}`}></i>
+            </button>
             {formik.touched.password && formik.errors.password && (
               <p className="text-danger">{formik.errors.password}</p>
             )}
