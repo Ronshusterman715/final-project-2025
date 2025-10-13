@@ -19,9 +19,9 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
     const value = e.target.value;
 
     if (value.trim()) {
-      navigate(`/?search=${value}`);
+      navigate(`/clubs?search=${value}`);
     } else {
-      navigate("/");
+      navigate("/clubs");
     }
   };
   return (
