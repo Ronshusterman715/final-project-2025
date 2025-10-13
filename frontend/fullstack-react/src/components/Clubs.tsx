@@ -126,9 +126,9 @@ const Clubs: FunctionComponent<ClubsProps> = ({
         </div>
       ) : (
         <div className="container my-3">
-          <div className="d-flex justify-content-center align-items-center mb-4 position-relative">
+          <div className="d-flex flex-column justify-content-center align-items-center mb-4 gap-3">
             <h1 className="mb-0">Clubs</h1>
-            <div className="position-absolute end-0 d-flex gap-2">
+            <div className="d-flex gap-2">
               <button
                 className="btn btn-outline-primary"
                 onClick={toggleViewMode}
