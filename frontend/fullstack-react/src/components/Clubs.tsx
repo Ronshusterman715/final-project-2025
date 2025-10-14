@@ -30,7 +30,10 @@ const Clubs: FunctionComponent<ClubsProps> = ({
     onLikeToggle,
   });
   const [filteredClubs, setFilteredClubs] = useState<Club[]>([]);
-  const [viewMode, setViewMode] = useState<string>("card");
+  const [viewMode, setViewMode] = useState<string>(() => {
+    const savedViewMode = localStorage.getItem("viewModePreference");
+    return savedViewMode || "card";
+  });
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
 
@@ -63,6 +66,7 @@ const Clubs: FunctionComponent<ClubsProps> = ({
   const toggleViewMode = () => {
     const newViewMode = viewMode === "card" ? "table" : "card";
     setViewMode(newViewMode);
+    localStorage.setItem("viewModePreference", newViewMode);
   };
 
   const handleFilterChange = (filters: {

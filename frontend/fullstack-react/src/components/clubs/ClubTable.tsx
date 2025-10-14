@@ -20,7 +20,6 @@ const ClubTable: FunctionComponent<ClubTableProps> = ({
   const userString = sessionStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
 
-  //TODO save prefer/last used view in storage.
   return (
     <div className="table-responsive">
       <table className="table table-hover align-middle">
