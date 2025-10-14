@@ -16,16 +16,18 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
   const [isClubLoading, setIsClubLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getFavoriteClubs()
-      .then((res) => {
+    const loadFavoriteClubs = async () => {
+      try {
+        const res = await getFavoriteClubs();
         setFavoriteClubs(res.data);
         setIsClubLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
         errorMessage("failed to load favorite clubs");
         setIsClubLoading(false);
-      });
+      }
+    };
+    loadFavoriteClubs();
   }, []);
 
   const onRemoveFromView = (cardId: string) => {

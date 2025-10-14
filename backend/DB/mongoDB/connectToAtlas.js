@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 require('dotenv').config();
 
-// TODO: add atlas connection string to .env file
 const connectionStringForAtlas = process.env.MONGODB_ATLAS_URI;
 
 const connectToAtlasDB = async () => {

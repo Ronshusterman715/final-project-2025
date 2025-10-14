@@ -37,20 +37,25 @@ const ClubForm: FunctionComponent<ClubFormProps> = () => {
   };
 
   useEffect(() => {
-    if (id && location.state) {
-      updateFormValues(location.state);
-      setIsLoading(false);
-    } else if (id) {
-      getClubById(id)
-        .then((res) => {
+    const loadClubForEdit = async () => {
+      if (id && location.state) {
+        updateFormValues(location.state);
+        setIsLoading(false);
+      } else if (id) {
+        try {
+          const res = await getClubById(id);
           updateFormValues(res.data);
-        })
-        .catch((err) => {
+          setIsLoading(false);
+        } catch (err) {
           console.error(err);
-        });
-    } else {
-      setIsLoading(false);
-    }
+          errorMessage(`failed to load club`);
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+    loadClubForEdit();
   }, [id]);
 
   const handleCreateSubmit = async (values: FormikValues) => {

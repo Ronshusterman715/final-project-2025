@@ -67,17 +67,16 @@ const Register: FunctionComponent<RegisterProps> = () => {
         ),
       alt: yup.string().min(2, "Too Short!").max(256, "Too Long!"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      const normalizedUser = normalizeUser(values);
-      registerUser(normalizedUser)
-        .then((res) => {
-          successMessage(`${res.data.email} registered successfully`);
-        })
-        .catch((err) => {
-          console.log(err);
-          errorMessage(`failed to create user - ${err.response.data}`);
-        });
-      resetForm();
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        const normalizedUser = normalizeUser(values);
+        const res = await registerUser(normalizedUser);
+        successMessage(`${res.data.email} registered successfully`);
+        resetForm();
+      } catch (err: any) {
+        console.log(err);
+        errorMessage(`failed to create user - ${err.response.data}`);
+      }
     },
   });
   return (

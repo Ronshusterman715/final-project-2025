@@ -25,16 +25,18 @@ function App() {
   const [isClubsLoading, setIsClubsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    getAllClubs()
-      .then((res) => {
+    const loadClubs = async () => {
+      try {
+        const res = await getAllClubs();
         setClubs(res.data);
         setIsClubsLoading(false);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log("Error loading clubs:", err);
         errorMessage("Failed to load clubs");
         setIsClubsLoading(false);
-      });
+      }
+    };
+    loadClubs();
   }, []);
 
   const onLikeToggle = (clubId: string, isLiked: boolean) => {

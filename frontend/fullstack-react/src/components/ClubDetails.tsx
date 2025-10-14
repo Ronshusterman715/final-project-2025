@@ -14,23 +14,24 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
   const [isClubLoading, setIsClubLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (id && location.state) {
-      setClub(location.state);
-      setIsClubLoading(false);
-    } else if (id) {
-      getClubById(id)
-        .then((res) => {
+    const loadClub = async () => {
+      if (id && location.state) {
+        setClub(location.state);
+        setIsClubLoading(false);
+      } else if (id) {
+        try {
+          const res = await getClubById(id);
           setClub(res.data);
           setIsClubLoading(false);
-        })
-        .catch((err) => {
+        } catch (err) {
           console.log(err);
           setIsClubLoading(false);
-        });
-    } else {
-      //TODO: לשנות לעמוד כרטיסים ראשי
-      navigate("/");
-    }
+        }
+      } else {
+        navigate("/");
+      }
+    };
+    loadClub();
   }, [id, location.state, navigate]);
 
   if (isClubLoading) {

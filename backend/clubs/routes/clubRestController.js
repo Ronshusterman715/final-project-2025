@@ -68,7 +68,10 @@ router.put('/:id', auth, async (req, res) => {
 
         let userInfo = req.user;
 
-        //TODO add if club exist
+        const existingClub = await getClubById(id);
+        if (!existingClub) {
+            return createError("validation", "Club not found", 404)
+        }
 
         if (!userInfo.isAdmin) {
             return createError("authorization", "Only Admin users can update clubs", 403)
