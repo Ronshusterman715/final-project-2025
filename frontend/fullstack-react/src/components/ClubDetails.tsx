@@ -11,21 +11,21 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [club, setClub] = useState<Club | null>(null);
-  const [isClubLoading, setIsClubLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadClub = async () => {
       if (id && location.state) {
         setClub(location.state);
-        setIsClubLoading(false);
+        setIsLoading(false);
       } else if (id) {
         try {
           const res = await getClubById(id);
           setClub(res.data);
-          setIsClubLoading(false);
+          setIsLoading(false);
         } catch (err) {
           console.log(err);
-          setIsClubLoading(false);
+          setIsLoading(false);
         }
       } else {
         navigate("/");
@@ -34,7 +34,7 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
     loadClub();
   }, [id, location.state, navigate]);
 
-  if (isClubLoading) {
+  if (isLoading) {
     return (
       <div className="d-flex justify-content-center my-5">
         <div className="spinner-border text-primary" role="status">

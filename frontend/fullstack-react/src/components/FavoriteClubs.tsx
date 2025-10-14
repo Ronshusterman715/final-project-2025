@@ -13,18 +13,18 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
   onLikeToggle,
 }) => {
   const [favoriteClubs, setFavoriteClubs] = useState<Club[]>([]);
-  const [isClubLoading, setIsClubLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadFavoriteClubs = async () => {
       try {
         const res = await getFavoriteClubs();
         setFavoriteClubs(res.data);
-        setIsClubLoading(false);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
         errorMessage("failed to load favorite clubs");
-        setIsClubLoading(false);
+        setIsLoading(false);
       }
     };
     loadFavoriteClubs();
@@ -45,8 +45,7 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
     shouldRemoveOnUnlike: true,
   });
 
-  //TODO make the loading function/logic the same everywhere.
-  if (isClubLoading) {
+  if (isLoading) {
     return (
       <div className="d-flex justify-content-center my-5">
         <div className="spinner-border text-primary" role="status">

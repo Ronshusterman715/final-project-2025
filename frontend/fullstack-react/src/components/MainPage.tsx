@@ -31,6 +31,16 @@ const MainPage: FunctionComponent<MainPage> = ({
       .sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0))
       .slice(0, 3);
   }, [clubs]);
+
+  if (isClubsLoading) {
+    return (
+      <div className="d-flex justify-content-center my-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="container my-5">
       <div className="text-center mb-5">
@@ -53,13 +63,7 @@ const MainPage: FunctionComponent<MainPage> = ({
           Most Popular Clubs
         </h3>
 
-        {isClubsLoading ? (
-          <div className="d-flex justify-content-center my-5">
-            <div className="spinner-border text-danger" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : topClubs.length === 0 ? (
+        {topClubs.length === 0 ? (
           <div className="text-center py-5">
             <i className="fas fa-search fa-3x text-muted mb-3"></i>
             <p className="lead text-muted">

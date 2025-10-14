@@ -106,6 +106,15 @@ const Clubs: FunctionComponent<ClubsProps> = ({
     setFilteredClubs(result);
   };
 
+  if (isClubsLoading) {
+    return (
+      <div className="d-flex justify-content-center my-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       {showFilters && (
@@ -118,42 +127,32 @@ const Clubs: FunctionComponent<ClubsProps> = ({
           onFilterChange={handleFilterChange}
         />
       )}
-      {isClubsLoading ? (
-        <div className="d-flex justify-content-center my-5">
-          <div className="spinner-border text-danger" role="status">
-            <span className="visually-hidden">Loading...</span>
+      <div className="container my-3">
+        <div className="d-flex flex-column justify-content-center align-items-center mb-4 gap-3">
+          <h1 className="mb-0">Clubs</h1>
+          <div className="d-flex gap-2">
+            <button
+              className="btn btn-outline-primary"
+              onClick={toggleViewMode}
+              title={`Switch to ${viewMode === "card" ? "table" : "card"} view`}
+            >
+              <i
+                className={`fas fa-${
+                  viewMode === "card" ? "table" : "th"
+                } me-2`}
+              ></i>
+              {viewMode === "card" ? "Table" : "Cards"}
+            </button>
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => setShowFilters(!showFilters)}
+            >
+              <i className="fas fa-filter me-2"></i>
+              Filters
+            </button>
           </div>
         </div>
-      ) : (
-        <div className="container my-3">
-          <div className="d-flex flex-column justify-content-center align-items-center mb-4 gap-3">
-            <h1 className="mb-0">Clubs</h1>
-            <div className="d-flex gap-2">
-              <button
-                className="btn btn-outline-primary"
-                onClick={toggleViewMode}
-                title={`Switch to ${
-                  viewMode === "card" ? "table" : "card"
-                } view`}
-              >
-                <i
-                  className={`fas fa-${
-                    viewMode === "card" ? "table" : "th"
-                  } me-2`}
-                ></i>
-                {viewMode === "card" ? "Table" : "Cards"}
-              </button>
-              <button
-                className="btn btn-outline-primary"
-                onClick={() => setShowFilters(!showFilters)}
-              >
-                <i className="fas fa-filter me-2"></i>
-                Filters
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
       {viewMode === "card" ? (
         <div className="row d-flex justify-content-center">
           {filteredClubs.map((club) => (
