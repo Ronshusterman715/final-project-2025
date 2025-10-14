@@ -15,6 +15,7 @@ import { getAllClubs } from "./services/clubsService";
 import { errorMessage } from "./utils/ui/alert";
 import type { Club } from "./interfaces/clubs/Club";
 import About from "./components/About";
+import Footer from "./components/Footer";
 
 function App() {
   const [jwtToken, setJwtToken] = useState<string | null>(
@@ -114,6 +115,7 @@ function App() {
               element={<FavoriteClubs onLikeToggle={onLikeToggle} />}
             />
           </Routes>
+          <Footer />
         </Router>
       </div>
     </>

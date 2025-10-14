@@ -14,7 +14,7 @@ const About: FunctionComponent<AboutProps> = () => {
       {/* Hero Section */}
       <section className="bg-primary text-white py-5">
         <div className="container text-center">
-          <h1 className="display-4 fw-bold mb-3">About Club Manager</h1>
+          <h1 className="display-4 fw-bold mb-3">About Club Finder</h1>
           <p className="lead">
             Your comprehensive solution for discovering and managing clubs
           </p>

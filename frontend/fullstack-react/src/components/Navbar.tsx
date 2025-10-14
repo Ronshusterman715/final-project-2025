@@ -37,7 +37,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
         <div className="container-fluid">
           {/* Brand */}
           <NavLink className="navbar-brand" to="/">
-            Club
+            Club Finder{" "}
           </NavLink>
 
           {/* Hamburger toggle (for mobile) */}
