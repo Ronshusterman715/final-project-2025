@@ -4,11 +4,13 @@ import * as yup from "yup";
 import { normalizeUser } from "../utils/users/normalizeUser";
 import { registerUser } from "../services/usersService";
 import { errorMessage, successMessage } from "../utils/ui/alert";
+import { useNavigate } from "react-router-dom";
 
 interface RegisterProps {}
 
 const Register: FunctionComponent<RegisterProps> = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const formik: FormikValues = useFormik<FormikValues>({
     initialValues: {
@@ -73,6 +75,7 @@ const Register: FunctionComponent<RegisterProps> = () => {
         const res = await registerUser(normalizedUser);
         successMessage(`${res.data.email} registered successfully`);
         resetForm();
+        navigate("/login");
       } catch (err: any) {
         console.log(err);
         errorMessage(`failed to create user - ${err.response.data}`);
