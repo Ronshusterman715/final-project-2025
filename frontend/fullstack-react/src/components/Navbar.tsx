@@ -86,7 +86,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                         "nav-link" + (isActive ? " active" : "")
                       }
                     >
-                      Fav Clubs
+                      Favorite Clubs
                     </NavLink>
                   </li>
                   {/*TODO: remove if not add edit user
