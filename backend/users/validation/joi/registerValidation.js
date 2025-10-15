@@ -20,7 +20,6 @@ const registerValidation = (user) => {
             ).rule({ message: "Image must contain a valid url" }).allow(""),
             alt: joi.string().min(2).max(256).allow(""),
         }).required(),
-        isAdmin: joi.boolean().allow(""),
     });
     return Schema.validate(user);
 };
