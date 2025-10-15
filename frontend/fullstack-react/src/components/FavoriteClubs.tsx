@@ -56,21 +56,30 @@ const FavoriteClubs: FunctionComponent<FavoriteClubsProps> = ({
   }
 
   return (
-    <div className="container my-5">
-      <h1 className="display-4 mb-4 text-center">My Favorite Clubs</h1>
-      <div className="row d-flex justify-content-center">
-        {favoriteClubs.map((club: Club) => (
-          <ClubCard
-            key={club._id}
-            club={club}
-            onClubClick={handleClubClick}
-            onClubDelete={handleClubDelete}
-            onClubEditClick={handleClubEditClick}
-            onLikeUnlikeClick={handleLikeUnlikeClick}
-          />
-        ))}
-      </div>
-    </div>
+    <>
+      {favoriteClubs.length === 0 ? (
+        <div className="text-center py-5">
+          <i className="fas fa-inbox fa-3x text-muted mb-3"></i>
+          <p className="lead text-muted">No clubs available yet.</p>
+        </div>
+      ) : (
+        <div className="container my-5">
+          <h1 className="display-4 mb-4 text-center">My Favorite Clubs</h1>
+          <div className="row d-flex justify-content-center">
+            {favoriteClubs.map((club: Club) => (
+              <ClubCard
+                key={club._id}
+                club={club}
+                onClubClick={handleClubClick}
+                onClubDelete={handleClubDelete}
+                onClubEditClick={handleClubEditClick}
+                onLikeUnlikeClick={handleLikeUnlikeClick}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -10,7 +10,6 @@ interface FavoritesManagementProps {
   isClubsLoading: boolean;
   onRemoveFromView: (clubId: string) => void;
   onLikeToggle: (clubId: string, isLiked: boolean) => void;
-  ranking?: number;
 }
 
 const FavoritesManagement: FunctionComponent<FavoritesManagementProps> = ({
@@ -18,7 +17,6 @@ const FavoritesManagement: FunctionComponent<FavoritesManagementProps> = ({
   isClubsLoading,
   onRemoveFromView,
   onLikeToggle,
-  ranking,
 }) => {
   const navigate = useNavigate();
   const userString = sessionStorage.getItem("user");
