@@ -4,6 +4,7 @@ import { buildCompleteUrl } from "../../utils/imageUrlResolver";
 
 interface ClubCardProps {
   club: Club;
+  ranking?: number;
   onClubClick: (club: Club) => void;
   onClubDelete: (club: Club) => void;
   onClubEditClick: (club: Club) => void;
@@ -12,6 +13,7 @@ interface ClubCardProps {
 
 const ClubCard: FunctionComponent<ClubCardProps> = ({
   club,
+  ranking,
   onClubClick,
   onClubDelete,
   onClubEditClick,
@@ -24,13 +26,28 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
   return (
     <div
       className="card m-3 shadow-sm club-card"
-      style={{ width: "18rem", height: "100%" }}
+      style={{ width: "18rem", height: "100%", position: "relative" }}
     >
       <div onClick={() => onClubClick(club)} style={{ cursor: "pointer" }}>
         <div
           className="card-image-container"
           style={{ height: "180px", overflow: "hidden" }}
         >
+          {ranking && (
+            <div
+              className="position-absolute"
+              style={{
+                top: "0.5rem",
+                left: "0.5rem",
+                zIndex: 10,
+              }}
+            >
+              <span className="badge bg-danger fs-5">
+                #{ranking} • {club.likes?.length || 0} ❤️
+              </span>
+            </div>
+          )}
+
           <img
             className="card-img-top"
             src={buildCompleteUrl(club.image.url)}

@@ -16,6 +16,7 @@ import { errorMessage } from "./utils/ui/alert";
 import type { Club } from "./interfaces/clubs/Club";
 import About from "./components/About";
 import Footer from "./components/Footer";
+import FavoritesManagement from "./components/FavoritesManagement";
 
 function App() {
   const [jwtToken, setJwtToken] = useState<string | null>(
@@ -126,6 +127,17 @@ function App() {
             <Route
               path="/favorites"
               element={<FavoriteClubs onLikeToggle={onLikeToggle} />}
+            />
+            <Route
+              path="/FavoritesManagement"
+              element={
+                <FavoritesManagement
+                  clubs={clubs}
+                  isClubsLoading={isClubsLoading}
+                  onRemoveFromView={onRemoveFromView}
+                  onLikeToggle={onLikeToggle}
+                />
+              }
             />
           </Routes>
           <Footer />
