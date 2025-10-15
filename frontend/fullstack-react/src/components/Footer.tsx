@@ -32,6 +32,11 @@ const Footer: FunctionComponent<FooterProps> = () => {
                   About
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/clubs" className="text-light">
+                  Clubs
+                </NavLink>
+              </li>
               {user && (
                 <>
                   <li>
