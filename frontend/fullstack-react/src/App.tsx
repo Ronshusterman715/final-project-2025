@@ -24,20 +24,25 @@ function App() {
   const [clubs, setClubs] = useState<Club[]>([]);
   const [isClubsLoading, setIsClubsLoading] = useState<boolean>(true);
 
+  const loadClubs = async () => {
+    try {
+      const res = await getAllClubs();
+      setClubs(res.data);
+      setIsClubsLoading(false);
+    } catch (err) {
+      console.log("Error loading clubs:", err);
+      errorMessage("Failed to load clubs");
+      setIsClubsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const loadClubs = async () => {
-      try {
-        const res = await getAllClubs();
-        setClubs(res.data);
-        setIsClubsLoading(false);
-      } catch (err) {
-        console.log("Error loading clubs:", err);
-        errorMessage("Failed to load clubs");
-        setIsClubsLoading(false);
-      }
-    };
     loadClubs();
   }, []);
+
+  const refetchClubs = async () => {
+    await loadClubs();
+  };
 
   const onLikeToggle = (clubId: string, isLiked: boolean) => {
     const userString = sessionStorage.getItem("user");
@@ -109,8 +114,14 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login loginEvent={loginEvent} />} />
-            <Route path="/clubs/create" element={<ClubForm />} />
-            <Route path="/clubs/:id/edit" element={<ClubForm />} />
+            <Route
+              path="/clubs/create"
+              element={<ClubForm onClubCreated={refetchClubs} />}
+            />
+            <Route
+              path="/clubs/:id/edit"
+              element={<ClubForm onClubEdited={refetchClubs} />}
+            />
             <Route path="/ClubDetails/:id/" element={<ClubDetails />} />
             <Route
               path="/favorites"

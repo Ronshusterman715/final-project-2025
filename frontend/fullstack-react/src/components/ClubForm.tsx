@@ -1,10 +1,19 @@
 import type { FunctionComponent } from "react";
 import { useClubForm } from "../hooks/useClubForm";
 
-interface ClubFormProps {}
+interface ClubFormProps {
+  onClubCreated?: () => void;
+  onClubEdited?: () => void;
+}
 
-const ClubForm: FunctionComponent<ClubFormProps> = () => {
-  const { formik, isLoading, isCreateMode } = useClubForm();
+const ClubForm: FunctionComponent<ClubFormProps> = ({
+  onClubCreated,
+  onClubEdited,
+}) => {
+  const { formik, isLoading, isCreateMode } = useClubForm({
+    onClubCreated,
+    onClubEdited,
+  });
 
   if (isLoading) {
     return (

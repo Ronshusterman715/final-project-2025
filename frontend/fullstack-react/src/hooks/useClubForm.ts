@@ -7,7 +7,15 @@ import type { Club } from "../interfaces/clubs/Club";
 import { useEffect, useState } from "react";
 import { clubValidationSchema } from "../validation/clubValidationSchema";
 
-export const useClubForm = () => {
+interface UseClubFormProps {
+  onClubCreated?: () => void;
+  onClubEdited?: () => void;
+}
+
+export const useClubForm = ({
+  onClubCreated,
+  onClubEdited,
+}: UseClubFormProps) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -19,6 +27,11 @@ export const useClubForm = () => {
       const normalizedClub = normalizeClub(values);
       const res = await createClub(normalizedClub);
       successMessage(`${res.data.name} created successfully`);
+
+      if (onClubCreated) {
+        await onClubCreated();
+      }
+
       navigate("/");
     } catch (err: any) {
       if (err.response.data)
@@ -34,6 +47,11 @@ export const useClubForm = () => {
       const normalizedClub = normalizeClub(values);
       const res = await updateClub(id!, normalizedClub);
       successMessage(`${res.data.name} updated successfully`);
+
+      if (onClubEdited) {
+        await onClubEdited();
+      }
+
       navigate("/");
     } catch (err: any) {
       if (err.response.data)
