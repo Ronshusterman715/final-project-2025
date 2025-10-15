@@ -142,7 +142,7 @@ The application will be available at `http://localhost:5173`
 
 ### Admin-Only Pages
 
-**Create Club** (`/cards/create`)
+**Create Club** (`/clubs/create`)
 
 - Form to create new clubs
 - Image upload

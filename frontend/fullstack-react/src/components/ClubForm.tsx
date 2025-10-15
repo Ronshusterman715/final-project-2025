@@ -28,7 +28,7 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
     <>
       <div className="w-50 mx-auto py-3">
         <h1 className="display-1 text-center mb-4">
-          {isCreateMode ? "Card Creation" : "Card Edit"}
+          {isCreateMode ? "Club Creation" : "Club Edit"}
         </h1>
         <form onSubmit={formik.handleSubmit}>
           <div className="row g-3">

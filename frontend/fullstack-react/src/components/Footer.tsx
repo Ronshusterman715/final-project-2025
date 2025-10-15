@@ -1,4 +1,5 @@
 import type { FunctionComponent } from "react";
+import { NavLink } from "react-router-dom";
 
 interface FooterProps {}
 
@@ -22,49 +23,52 @@ const Footer: FunctionComponent<FooterProps> = () => {
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="/" className="text-light">
+                <NavLink to="/" className="text-light">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="/about" className="text-light">
+                <NavLink to="/about" className="text-light">
                   About
-                </a>
+                </NavLink>
               </li>
               {user && (
                 <>
                   <li>
-                    <a href="/favorites" className="text-light">
-                      Fav Cards
-                    </a>
+                    <NavLink to="/favorites" className="text-light">
+                      Favorite Clubs
+                    </NavLink>
                   </li>
-                  <li>
-                    <a href={`/users/${user._id}/edit`} className="text-light">
+                  {/*TODO: <li>
+                    <NavLink
+                      to={`/users/${user._id}/edit`}
+                      className="text-light"
+                    >
                       Account Details
-                    </a>
-                  </li>
+                    </NavLink>
+                  </li> */}
                 </>
               )}
               {user && user.isAdmin && (
                 <>
                   <li>
-                    <a href="/cards/create" className="text-light">
-                      Create Card
-                    </a>
+                    <NavLink to="/clubs/create" className="text-light">
+                      Create Club
+                    </NavLink>
                   </li>
                 </>
               )}
               {!user && (
                 <>
                   <li>
-                    <a href="/login" className="text-light">
+                    <NavLink to="/login" className="text-light">
                       Login
-                    </a>
+                    </NavLink>
                   </li>
                   <li>
-                    <a href="/register" className="text-light">
+                    <NavLink to="/register" className="text-light">
                       Register
-                    </a>
+                    </NavLink>
                   </li>
                 </>
               )}
