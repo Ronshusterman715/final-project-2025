@@ -199,6 +199,7 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
             <div className="col-md">
               <div className="form-floating mb-3">
                 <input
+                  // default image is text url
                   type="text"
                   className="form-control"
                   id="image"
