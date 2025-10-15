@@ -6,7 +6,6 @@ const Footer: FunctionComponent<FooterProps> = () => {
   const userString = sessionStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
 
-  //TODO add logo
   return (
     <footer className="bg-dark text-light py-4 mt-5">
       <div className="container">
@@ -87,6 +86,11 @@ const Footer: FunctionComponent<FooterProps> = () => {
         <div className="row">
           <div className="col-md-6">
             <p>
+              <img
+                src="/images/club-finder-logo.png"
+                alt="Club Finder Logo"
+                style={{ width: "60px", marginBottom: "15px" }}
+              />
               &copy; {new Date().getFullYear()} Club Finder. All rights
               reserved.
             </p>
