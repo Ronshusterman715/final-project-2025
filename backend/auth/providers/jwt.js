@@ -9,7 +9,6 @@ const generateAuthToken = (user) => {
         _id: user._id,
         isAdmin: user.isAdmin,
     };
-    //TODO: add 4h exp for bonus 
     const token = jwt.sign(payload, SECRET_KEY);
     return token;
 };
