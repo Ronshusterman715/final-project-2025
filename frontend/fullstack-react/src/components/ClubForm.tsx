@@ -199,7 +199,7 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
             <div className="col-md">
               <div className="form-floating mb-3">
                 <input
-                  type="url"
+                  type="text"
                   className="form-control"
                   id="image"
                   placeholder="https://www.example.com/image.jpg"
