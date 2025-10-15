@@ -63,7 +63,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                     "nav-link" + (isActive ? " active" : "")
                   }
                 >
-                  ABOUT
+                  About
                 </NavLink>
               </li>
 
@@ -89,7 +89,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                       Fav Clubs
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  {/*TODO: remove if not add edit user
+                   <li className="nav-item">
                     <NavLink
                       to={`/users/${user._id}/edit`}
                       className={({ isActive }) =>
@@ -98,7 +99,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                     >
                       Account Details
                     </NavLink>
-                  </li>
+                  </li> */}
                   {user.isAdmin && (
                     <>
                       <li className="nav-item">
@@ -118,7 +119,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                             "nav-link" + (isActive ? " active" : "")
                           }
                         >
-                          Favorite Management
+                          Favorites Management
                         </NavLink>
                       </li>
                     </>
@@ -164,22 +165,6 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                 />
               </div>
             </div>
-            {/* <button
-              className={`btn ${
-                context.theme === "dark" ? "btn-light" : "btn-outline-light"
-              } me-2`}
-              onClick={context.toggleTheme}
-              title={`Switch to ${
-                context.theme === "dark" ? "light" : "dark"
-              } mode`}
-            >
-              <i
-                className={`fas fa-${
-                  context.theme === "dark" ? "sun" : "moon"
-                }`}
-              ></i>
-            </button> */}
-
             {/* User Avatar */}
             {user && (
               <div className="d-flex align-items-center">

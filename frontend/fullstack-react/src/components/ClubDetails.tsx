@@ -51,7 +51,6 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
   return (
     <div className="container my-5">
       <div className="row g-4">
-        {/* Image Column */}
         <div className="col-lg-5">
           <div
             className="rounded shadow overflow-hidden"
@@ -74,19 +73,14 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
           </div>
         </div>
 
-        {/* Content Column */}
         <div className="col-lg-7">
-          {/* Title */}
           <h1 className="display-4 mb-2">{club.name}</h1>
           <h4 className="text-muted mb-4">{club.type}</h4>
-
-          {/* Description */}
           <div className="mb-4">
             <h5 className="fw-bold">Description</h5>
             <p className="text-secondary">{club.description}</p>
           </div>
 
-          {/* Contact & Address in Cards */}
           <div className="row g-3 mb-4">
             <div className="col-md-6">
               <div className="card h-100 border-0 shadow-sm">
@@ -130,7 +124,6 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
             </div>
           </div>
 
-          {/* Club Information Card */}
           <div className="card border-0 shadow-sm mb-4">
             <div className="card-body">
               <h5 className="card-title mb-3">
@@ -156,7 +149,6 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="d-flex flex-wrap gap-2">
             <button
               className="btn btn-primary"

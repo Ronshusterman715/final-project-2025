@@ -11,7 +11,6 @@ interface AboutProps {}
 const About: FunctionComponent<AboutProps> = () => {
   return (
     <div className="about-page">
-      {/* Hero Section */}
       <section className="bg-primary text-white py-5">
         <div className="container text-center">
           <h1 className="display-4 fw-bold mb-3">About Club Finder</h1>
@@ -20,8 +19,6 @@ const About: FunctionComponent<AboutProps> = () => {
           </p>
         </div>
       </section>
-
-      {/* Main Content */}
       <div className="container my-5">
         <AboutIntro />
         <AboutFeatures />

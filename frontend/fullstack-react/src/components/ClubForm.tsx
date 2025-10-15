@@ -348,7 +348,7 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
               type="submit"
               className="btn btn-primary mt-4"
             >
-              Edit
+              Save
             </button>
           )}
         </form>

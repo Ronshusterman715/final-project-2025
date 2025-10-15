@@ -33,6 +33,7 @@ const AboutAdmin: FunctionComponent<AboutAdminProps> = () => {
           <strong>Delete Clubs:</strong> Remove clubs that are no longer active
           or relevant from the platform
         </li>
+        {/* TODO: remove this if not create user management system */}
         <li className="list-group-item bg-transparent">
           <i className="fas fa-users-cog text-info me-2"></i>
           <strong>User Management:</strong> View user lists, update permissions,
