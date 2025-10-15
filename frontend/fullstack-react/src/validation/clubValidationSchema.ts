@@ -36,13 +36,13 @@ export const clubValidationSchema = yup.object({
     .trim()
     .lowercase()
     .matches(
-      /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/images\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/,
-      "Image must contain a valid url"
+      /^((https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?|\/images\/chatgpt-general-club-image\.png|\/images\/[a-zA-Z0-9._-]+\.(jpg|jpeg|png|gif|webp))$/,
+      "Image must contain a valid url or default image"
     ),
   alt: yup.string().min(2).max(256),
   country: yup.string().min(2).max(256).required("Country is required"),
   city: yup.string().min(2).max(256).required("City is required"),
   street: yup.string().min(2).max(256).required("Street is required"),
   houseNumber: yup.number().min(1).required("House Number is required"),
-  floor: yup.number().min(0),
+  floor: yup.number().min(0).nullable().notRequired(),
 });
