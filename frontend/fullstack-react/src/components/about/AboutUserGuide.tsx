@@ -5,7 +5,7 @@ interface AboutUserGuideProps {}
 const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
   return (
     <section className="mb-4">
-      <h2 className="h3 border-bottom pb-2 mb-3">How to Use Club Manager</h2>
+      <h2 className="h3 border-bottom pb-2 mb-3">How to Use Club Finder</h2>
 
       <div className="accordion" id="userGuideAccordion">
         <div className="accordion-item border mb-3">
@@ -34,15 +34,16 @@ const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
                     <div className="fw-bold">Register</div>
                     Click "Register" in the navigation menu and fill in the
                     required details. Make sure to enter a strong password
-                    containing uppercase and lowercase letters, at least 4
-                    numbers, and a special character.
+                    containing uppercase and lowercase letters, at least one
+                    number, and a special character.
                   </div>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">Login</div>
                     Existing users can click "Login" and enter their email
-                    address and password to access their account.
+                    address and password to access their account. Use the
+                    "Remember Me" option to stay logged in across sessions.
                   </div>
                 </li>
               </ol>
@@ -74,20 +75,33 @@ const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">Home Page</div>
-                    View the most popular and newest clubs on the homepage
+                    View the most popular clubs on the homepage
                   </div>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">Clubs Page</div>
-                    Click "Clubs" in the menu to see all available clubs
+                    Click on the app name in the menu to see all available clubs
                   </div>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">Search</div>
                     Use the search bar at the top to find specific clubs by name
-                    or keywords
+                  </div>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
+                  <div className="ms-2 me-auto">
+                    <div className="fw-bold">Filters</div>
+                    Apply filters by type, location (country/city), and age
+                    requirements to narrow your search
+                  </div>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
+                  <div className="ms-2 me-auto">
+                    <div className="fw-bold">View Modes</div>
+                    Toggle between card and table view for your preferred
+                    browsing experience
                   </div>
                 </li>
               </ol>
@@ -126,8 +140,8 @@ const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
                   <div className="ms-2 me-auto">
                     <div className="fw-bold">View Favorites</div>
-                    Access all your favorite clubs through the "Fav Clubs" link
-                    in the navigation menu
+                    Access all your favorite clubs through the "Favorite Clubs"
+                    link in the navigation menu
                   </div>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
@@ -152,7 +166,7 @@ const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
               aria-expanded="false"
               aria-controls="collapseFour"
             >
-              <i className="fas fa-user-edit me-2"></i> Account Management
+              <i className="fas fa-sign-out-alt me-2"></i> Logout
             </button>
           </h2>
           <div
@@ -162,27 +176,10 @@ const AboutUserGuide: FunctionComponent<AboutUserGuideProps> = () => {
             data-bs-parent="#userGuideAccordion"
           >
             <div className="accordion-body">
-              <ol className="list-group list-group-numbered">
-                <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Edit Profile</div>
-                    Click on your username in the navigation menu to edit your
-                    personal details
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Change Password</div>
-                    Update your password through the account settings page
-                  </div>
-                </li>
-                <li className="list-group-item d-flex justify-content-between align-items-start bg-transparent">
-                  <div className="ms-2 me-auto">
-                    <div className="fw-bold">Logout</div>
-                    Click the logout button to securely end your session
-                  </div>
-                </li>
-              </ol>
+              <p>
+                Click the logout button in the navigation menu to securely end
+                your session and return to the login page.
+              </p>
             </div>
           </div>
         </div>

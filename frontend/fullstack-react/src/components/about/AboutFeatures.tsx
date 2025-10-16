@@ -14,8 +14,8 @@ const AboutFeatures: FunctionComponent<AboutFeaturesProps> = () => {
               <i className="fas fa-users text-primary fa-2x mb-3"></i>
               <h4 className="h5 card-title">User Management</h4>
               <p className="card-text">
-                Secure registration and login with authentication and user
-                privacy protection.
+                Secure registration and login with JWT authentication and
+                "Remember Me" functionality for persistent sessions.
               </p>
             </div>
           </div>
@@ -25,10 +25,10 @@ const AboutFeatures: FunctionComponent<AboutFeaturesProps> = () => {
           <div className="card h-100 border-0 shadow-sm">
             <div className="card-body text-center">
               <i className="fas fa-search text-info fa-2x mb-3"></i>
-              <h4 className="h5 card-title">Advanced Search</h4>
+              <h4 className="h5 card-title">Search & Filter</h4>
               <p className="card-text">
-                Smart search engine to find clubs by name, category, and various
-                attributes.
+                Search clubs by name and apply filters by type, location
+                (country/city), and age requirements.
               </p>
             </div>
           </div>
@@ -40,8 +40,8 @@ const AboutFeatures: FunctionComponent<AboutFeaturesProps> = () => {
               <i className="fas fa-heart text-danger fa-2x mb-3"></i>
               <h4 className="h5 card-title">Personal Favorites</h4>
               <p className="card-text">
-                Save your favorite clubs for quick and easy access anytime,
-                anywhere.
+                Save your favorite clubs with persistent storage across devices
+                for quick access anytime, anywhere.
               </p>
             </div>
           </div>
@@ -53,8 +53,8 @@ const AboutFeatures: FunctionComponent<AboutFeaturesProps> = () => {
               <i className="fas fa-cog text-success fa-2x mb-3"></i>
               <h4 className="h5 card-title">Admin Panel</h4>
               <p className="card-text">
-                Advanced management tools for administrators to add, edit, and
-                delete content.
+                Complete CRUD operations for administrators with user management
+                and favorites monitoring capabilities.
               </p>
             </div>
           </div>
