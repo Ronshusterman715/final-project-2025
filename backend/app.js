@@ -22,7 +22,6 @@ app.use(corsMiddleware);
 app.use(router);
 
 app.use((err, req, res, next) => {
-    console.log(err);
     return handleError(res, 500, "Internal Server Error")
 });
 
