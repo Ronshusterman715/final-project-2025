@@ -189,6 +189,7 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
     alt: String (2-256 chars)
   },
   address: Object (optional),
+  isAdmin: Boolean (default: false),
   createdAt: Date
 }
 ```
@@ -198,14 +199,14 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
 - 8-20 characters
 - At least one uppercase letter
 - At least one lowercase letter
-- At least four numbers
-- At least one special character (!@#$%^&\*\_-)
+- At least one number
+- At least one special character (@$!%\*?&)
 
 ### Club Schema
 
 ```javascript
 {
-   name: String (2-256 chars, required),
+  name: String (2-256 chars, required),
   description: String (2-1024 chars, required),
   type: String (2-256 chars, required),
   ageRequirement: String (1-11 chars, required),
@@ -213,7 +214,7 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
   email: String (valid email, required),
   openDays: String (2-256 chars, required),
   openHours: String (2-256 chars, required),
-  image: {: {
+  image: {
     url: String (14+ chars),
     alt: String (2-256 chars)
   },
@@ -221,11 +222,10 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
     country: String (2-256 chars, required),
     city: String (2-256 chars, required),
     street: String (2-256 chars, required),
-    houseNumber: String (1-10 chars, required),
-    zip: String (optional)
+    houseNumber: Number (min 1, required),
+    floor: Number (min 0, optional)
   },
   likes: Array of user IDs,
-  userId: ObjectId (creator's user ID),
   createdAt: Date
 }
 ```

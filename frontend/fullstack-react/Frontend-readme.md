@@ -14,6 +14,7 @@ React-based frontend application for the Club Finder platform, built with TypeSc
 - **Formik** - Form handling and validation
 - **Yup** - Schema validation for forms
 - **React Toastify** - Toast notifications
+- **jwt-decode** - JWT token decoding
 - **Local Storage** - Persistent storage for "Remember Me" and user preferences
 - **Session Storage** - Temporary session storage for user data
 
@@ -159,6 +160,12 @@ The application will be available at `http://localhost:5173`
 - Modify club details
 - Admin authorization required
 
+**Favorites Management** (`/FavoritesManagement`)
+
+- View all clubs with favorites
+- Manage club likes across all users
+- Admin monitoring
+
 **View Club** (`/clubs/:id`)
 
 - Detailed club information
@@ -195,7 +202,8 @@ Dynamic navigation bar that changes based on user authentication status and role
 - Profile Image
 - App Name
 - About
-- Create Club Card
+- Create Club
+- Favorites Management
 - Logout
 - Search Bar
 
@@ -219,6 +227,19 @@ Displays:
 - Like button
 - Admin actions (edit/delete)
 
+**ClubTable** - Table view of clubs
+
+- Compact display format
+- Sortable columns
+- Quick actions
+
+**ClubFilters** - Advanced filtering interface
+
+- Type selection
+- Location filters
+- Age requirement filter
+- Apply/Reset functionality
+
 ### User Components
 
 **UserForm** - Handle user registration and profile editing
@@ -236,9 +257,10 @@ Displays:
 2. **Login**
 
    - User enters credentials
+   - Optional "Remember Me" checkbox
    - Backend validates and returns JWT token
-   - Token stored in session storage
-   - User data stored in session storage
+   - Token stored in local/session storage based on "Remember Me"
+   - User data stored in local/session storage
    - Redirect to home page
 
 3. **Authenticated Requests**
@@ -248,7 +270,7 @@ Displays:
    - Returns requested data or error
 
 4. **Logout**
-   - Clear session storage
+   - Clear both local and session storage
    - Redirect to home page
 
 ## 📡 API Integration
@@ -259,7 +281,7 @@ The application uses an Axios interceptor to automatically add authentication to
 
 ```typescript
 axiosInstance.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem("token");
+  const token = getToken(); // Gets from either localStorage or sessionStorage
   if (token) {
     config.headers["x-auth-token"] = token;
   }
@@ -302,10 +324,13 @@ The application uses Bootstrap 5 for responsive design and UI components:
 
 ### Font Awesome
 
-Icons are provided by Font Awesome 7.0.1:
+Icons are provided by Font Awesome:
 
 ```html
-
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 ```
 
 ### Custom CSS
@@ -411,8 +436,8 @@ interface Club {
   ageRequirement: string;
   phone: string;
   email: string;
-  openHours: string;
   openDays: string;
+  openHours: string;
   image: {
     url: string;
     alt: string;
@@ -421,11 +446,10 @@ interface Club {
     country: string;
     city: string;
     street: string;
-    houseNumber: string;
-    zip?: string;
+    houseNumber: number;
+    floor?: number;
   };
   likes: string[];
-  userId: string;
   createdAt: Date;
 }
 ```
@@ -442,23 +466,22 @@ interface Club {
 - Password: 8-20 characters, must contain:
   - At least one uppercase letter
   - At least one lowercase letter
-  - At least four numbers
-  - At least one
+  - At least one number
   - At least one special character (@$!%\*?&)
 
 ### Club Creation Form
 
 - Name: 2-256 characters, required
-- Description: 2-256 characters, required
+- Description: 2-1024 characters, required
 - Type: 2-256 characters, required
 - Age Requirement: 1-11 characters, required
 - Phone: 9-11 characters, Israeli format, required
 - Email: Valid email format, required
 - Open Days: 2-256 characters, required
 - Open Hours: 2-256 characters, required
-- Image URL: 14+ characters
+- Image URL: Valid URL or default image path
 - Image Alt: 2-256 characters
-- Address fields: All required
+- Address fields: All required (floor is optional)
 
 ## 🔧 Development
 
@@ -508,7 +531,7 @@ The application is fully responsive and works on:
 
 ### Authentication Problems
 
-- Clear session storage
+- Clear both local and session storage
 - Check if token is expired
 - Verify token format in request headers
 
@@ -527,12 +550,17 @@ The application is fully responsive and works on:
     "react-dom": "^18.x",
     "react-router-dom": "^6.x",
     "axios": "^1.x",
-    "bootstrap": "^5.x"
+    "bootstrap": "^5.x",
+    "formik": "^2.x",
+    "yup": "^1.x",
+    "react-toastify": "^9.x",
+    "jwt-decode": "^4.x"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.x",
     "typescript": "^5.x",
-    "vite": "^5.x"
+    "vite": "^5.x",
+    "eslint": "^8.x"
   }
 }
 ```

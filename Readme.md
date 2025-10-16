@@ -4,16 +4,18 @@ A comprehensive full-stack web application for discovering and managing local cl
 
 ## 📋 Project Overview
 
-Club Finder is a platform that helps users discover sports clubs, hobby groups, social clubs, and more in their area. The application features user authentication, advanced search capabilities, personal favorites, and comprehensive admin management tools.
+Club Finder is a platform that helps users discover sports clubs, hobby groups, social clubs, and more in their area. The application features user authentication, advanced search and filtering capabilities, personal favorites system, and comprehensive admin management tools for creating, editing, and deleting clubs.
 
 ## ✨ Key Features
 
-- **User Management**: Secure registration and login with JWT authentication
-- **Advanced Search**: Smart search engine to find clubs by name, category, and various attributes
-- **Personal Favorites**: Save your favorite clubs for quick access
-- **Admin Panel**: Advanced management tools for administrators to create, edit, and delete clubs
-- **Responsive Design**: Mobile-friendly interface built with Bootstrap
+- **User Management**: Secure registration and login with JWT authentication and "Remember Me" functionality
+- **Advanced Search & Filtering**: Search clubs by name and filter by type, location (country/city), and age requirements
+- **Personal Favorites**: Save your favorite clubs with persistent storage across devices
+- **Admin Panel**: Full CRUD operations for administrators to create, edit, and delete clubs
+- **Multiple View Modes**: Toggle between card and table view with saved preferences
+- **Responsive Design**: Mobile-friendly interface built with Bootstrap 5
 - **Role-Based Access**: Different capabilities for regular users and administrators
+- **Real-time Updates**: Immediate UI updates when liking/unliking clubs or managing content
 
 ## 🛠️ Technology Stack
 
@@ -34,6 +36,10 @@ Club Finder is a platform that helps users discover sports clubs, hobby groups, 
 - Axios
 - Bootstrap 5
 - Font Awesome icons
+- Formik - Form handling
+- Yup - Form validation
+- React Toastify - Notifications
+- jwt-decode - JWT token decoding
 
 ## 📁 Project Structure
 
@@ -113,7 +119,7 @@ The application will be available at:
 ## 📚 Documentation
 
 - [Backend Documentation](./backend/README.md) - API endpoints, database schema, and backend setup
-- [Frontend Documentation](./frontend/README.md) - Component structure and frontend configuration
+- [Frontend Documentation](./frontend/fullstack-react/Frontend-readme.md) - Component structure and frontend configuration
 
 ## 👥 User Roles
 
@@ -133,6 +139,7 @@ The application will be available at:
 - Edit existing clubs
 - Delete clubs
 - View all users
+- Access to Favorites Management page
 
 ## 🔐 Authentication
 
