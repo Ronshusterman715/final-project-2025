@@ -49,7 +49,7 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
         .trim()
         .matches(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-          "Password must contain at least one uppercase letter, lowercase letter, number and special character (@$!%*?&). Length: 8-20 characters."
+          "Password must contain at least one uppercase letter, one lowercase letter, at least 4 numbers, and at least one special character (!@#$%^&*_-). No spaces allowed. Length: 8-20 characters."
         )
         .required("Password is required"),
     }),

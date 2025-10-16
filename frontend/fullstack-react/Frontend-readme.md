@@ -11,7 +11,11 @@ React-based frontend application for the Club Finder platform, built with TypeSc
 - **Axios** - HTTP client for API requests
 - **Bootstrap 5** - CSS framework for responsive design
 - **Font Awesome** - Icon library
-- **Session Storage** - Client-side storage for user data
+- **Formik** - Form handling and validation
+- **Yup** - Schema validation for forms
+- **React Toastify** - Toast notifications
+- **Local Storage** - Persistent storage for "Remember Me" and user preferences
+- **Session Storage** - Temporary session storage for user data
 
 ## 📁 Project Structure
 
@@ -313,21 +317,67 @@ Additional styles are defined in:
 
 ## 🔍 Search & Filter
 
-The application includes a search bar that allows users to filter clubs by:
+### Search Functionality
 
-- Club name
-- Club type
-- Description
-- Location
+The application includes a search bar in the navigation that allows users to search clubs by:
+
+- **Club name** - Real-time search filtering
+
+### Advanced Filter System
+
+Users can apply multiple filters simultaneously to find the perfect club:
+
+- **Type** - Filter by club type (sports, social, hobby, etc.)
+- **Country** - Filter by country location
+- **City** - Filter by specific city
+- **Age Requirement** - Filter by age requirements
+
+The filter system features:
+
+- **Multi-criteria filtering** - Apply multiple filters at once
+- **Reset functionality** - Clear all filters with one click
+- **Dynamic dropdowns** - Only shows available options based on current clubs
+- **Persistent filters** - Filters work alongside search functionality
+
+### View Modes
+
+Users can toggle between two view modes:
+
+- **Card View** - Visual card layout with images and details
+- **Table View** - Compact table format for quick scanning
+- **Persistent preference** - View mode choice is saved in local storage
 
 ## 💾 Data Storage
 
-### Session Storage
+### Local Storage & Session Storage
 
-The application stores the following in session storage:
+The application uses a **"Remember Me"** feature that determines where user data is stored:
 
-- `token` - JWT authentication token
-- `user` - User object with ID, name, email, and isAdmin status
+**When "Remember Me" is checked:**
+
+- `token` - JWT authentication token stored in **Local Storage**
+- `user` - User object stored in **Local Storage**
+- Data persists even after browser is closed
+
+**When "Remember Me" is NOT checked:**
+
+- `token` - JWT authentication token stored in **Session Storage**
+- `user` - User object stored in **Session Storage**
+- Data is cleared when browser/tab is closed
+
+**Additional Local Storage:**
+
+- `viewModePreference` - User's preferred view mode (card or table)
+
+### Storage Utility Functions
+
+The application uses centralized storage utilities (`utils/storage.ts`):
+
+- `saveToken(token, rememberMe)` - Saves token to appropriate storage
+- `saveUser(user, rememberMe)` - Saves user data to appropriate storage
+- `getToken()` - Retrieves token from either storage location
+- `getUser()` - Retrieves user from either storage location
+- `clearAuth()` - Clears authentication data from both storages
 
 ### User Object Structure
 
@@ -392,7 +442,8 @@ interface Club {
 - Password: 8-20 characters, must contain:
   - At least one uppercase letter
   - At least one lowercase letter
-  - At least one number
+  - At least four numbers
+  - At least one
   - At least one special character (@$!%\*?&)
 
 ### Club Creation Form

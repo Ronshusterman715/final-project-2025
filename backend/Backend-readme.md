@@ -121,6 +121,12 @@ MONGODB_ATLAS_URI=your_mongodb_atlas_connection_string
 # Authentication
 TOKEN_GENERATOR=jwt
 SECRET_KEY=your_secret_key_here_at_least_32_characters
+
+# Validation
+VALIDATOR=joi
+
+# Logging
+LOGGER=morgan
 ```
 
 ### Environment Variables Explained
@@ -132,6 +138,8 @@ SECRET_KEY=your_secret_key_here_at_least_32_characters
 - `MONGODB_ATLAS_URI` - Connection string for MongoDB Atlas
 - `TOKEN_GENERATOR` - Authentication method (currently 'jwt')
 - `SECRET_KEY` - Secret key for JWT token generation (use a strong, random string)
+- `VALIDATOR` - Validation library (currently 'joi')
+- `LOGGER` - HTTP request logger (currently 'morgan')
 
 ## 📡 API Endpoints
 
@@ -181,7 +189,6 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
     alt: String (2-256 chars)
   },
   address: Object (optional),
-  isAdmin: Boolean (default: false),
   createdAt: Date
 }
 ```
@@ -191,8 +198,8 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
 - 8-20 characters
 - At least one uppercase letter
 - At least one lowercase letter
-- At least one number
-- At least one special character (@$!%\*?&)
+- At least four numbers
+- At least one special character (!@#$%^&\*\_-)
 
 ### Club Schema
 
