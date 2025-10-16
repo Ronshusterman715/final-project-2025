@@ -4,7 +4,6 @@ const DEFAULT_VALIDATION = {
     minLength: 2,
     maxLength: 256,
     trim: true,
-    lowercase: true,
 }
 
 const PHONE_VALIDATION = {
