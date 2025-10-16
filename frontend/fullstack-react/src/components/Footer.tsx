@@ -44,14 +44,6 @@ const Footer: FunctionComponent<FooterProps> = () => {
                       Favorite Clubs
                     </NavLink>
                   </li>
-                  {/*TODO: <li>
-                    <NavLink
-                      to={`/users/${user._id}/edit`}
-                      className="text-light"
-                    >
-                      Account Details
-                    </NavLink>
-                  </li> */}
                 </>
               )}
               {user && user.isAdmin && (

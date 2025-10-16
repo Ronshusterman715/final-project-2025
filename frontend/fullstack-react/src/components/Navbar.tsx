@@ -89,17 +89,6 @@ const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
                       Favorite Clubs
                     </NavLink>
                   </li>
-                  {/*TODO: remove if not add edit user
-                   <li className="nav-item">
-                    <NavLink
-                      to={`/users/${user._id}/edit`}
-                      className={({ isActive }) =>
-                        "nav-link" + (isActive ? " active" : "")
-                      }
-                    >
-                      Account Details
-                    </NavLink>
-                  </li> */}
                   {user.isAdmin && (
                     <>
                       <li className="nav-item">

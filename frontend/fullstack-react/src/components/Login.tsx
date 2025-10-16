@@ -59,6 +59,9 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
     <>
       <div className="w-50 mx-auto py-3">
         <h1 className="display-1 text-center mb-4">Login</h1>
+        <p className="text-muted mb-3">
+          <span style={{ color: "red" }}>*</span> Indicates required field
+        </p>
         <form onSubmit={formik.handleSubmit}>
           <div className="form-floating mb-3">
             <input
@@ -72,7 +75,9 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
               onBlur={formik.handleBlur}
               value={formik.values.email}
             />
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">
+              Email Address <span style={{ color: "red" }}>*</span>
+            </label>
             {formik.touched.email && formik.errors.email && (
               <p className="text-danger">{formik.errors.email}</p>
             )}
@@ -90,7 +95,9 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
               onBlur={formik.handleBlur}
               value={formik.values.password}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">
+              Password <span style={{ color: "red" }}>*</span>
+            </label>
             <button
               type="button"
               className="btn btn-link position-absolute end-0 top-50 translate-middle-y"

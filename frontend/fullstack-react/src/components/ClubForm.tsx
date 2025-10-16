@@ -30,6 +30,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
         <h1 className="display-1 text-center mb-4">
           {isCreateMode ? "Club Creation" : "Club Edit"}
         </h1>
+        <p className="text-muted mb-3">
+          <span style={{ color: "red" }}>*</span> Indicates required field
+        </p>
         <form onSubmit={formik.handleSubmit}>
           <div className="row g-3">
             <div className="col-md">
@@ -45,7 +48,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.name}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">
+                  Name <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.name && formik.errors.name && (
                   <p className="text-danger">{formik.errors.name}</p>
                 )}
@@ -64,7 +69,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.description}
                 />
-                <label htmlFor="description">Description</label>
+                <label htmlFor="description">
+                  Description <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.description && formik.errors.description && (
                   <p className="text-danger">{formik.errors.description}</p>
                 )}
@@ -83,7 +90,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.type}
                 />
-                <label htmlFor="type">Type</label>
+                <label htmlFor="type">
+                  Type <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.type && formik.errors.type && (
                   <p className="text-danger">{formik.errors.type}</p>
                 )}
@@ -105,7 +114,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                 />
-                <label htmlFor="tel">Phone</label>
+                <label htmlFor="tel">
+                  Phone <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.phone && formik.errors.phone && (
                   <p className="text-danger">{formik.errors.phone}</p>
                 )}
@@ -124,7 +135,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">
+                  Email <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.email && formik.errors.email && (
                   <p className="text-danger">{formik.errors.email}</p>
                 )}
@@ -146,7 +159,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.ageRequirement}
                 />
-                <label htmlFor="ageRequirement">Age Requirement</label>
+                <label htmlFor="ageRequirement">
+                  Age Requirement <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.ageRequirement &&
                   formik.errors.ageRequirement && (
                     <p className="text-danger">
@@ -168,7 +183,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.openDays}
                 />
-                <label htmlFor="openDays">Days Open</label>
+                <label htmlFor="openDays">
+                  Days Open <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.openDays && formik.errors.openDays && (
                   <p className="text-danger">{formik.errors.openDays}</p>
                 )}
@@ -187,7 +204,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.openHours}
                 />
-                <label htmlFor="openHours">Hours Open</label>
+                <label htmlFor="openHours">
+                  Hours Open <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.openHours && formik.errors.openHours && (
                   <p className="text-danger">{formik.errors.openHours}</p>
                 )}
@@ -249,7 +268,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.country}
                 />
-                <label htmlFor="country">Country</label>
+                <label htmlFor="country">
+                  Country <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.country && formik.errors.country && (
                   <p className="text-danger">{formik.errors.country}</p>
                 )}
@@ -268,7 +289,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.city}
                 />
-                <label htmlFor="city">City</label>
+                <label htmlFor="city">
+                  City <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.city && formik.errors.city && (
                   <p className="text-danger">{formik.errors.city}</p>
                 )}
@@ -290,7 +313,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.street}
                 />
-                <label htmlFor="street">Street</label>
+                <label htmlFor="street">
+                  Street <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.street && formik.errors.street && (
                   <p className="text-danger">{formik.errors.street}</p>
                 )}
@@ -309,7 +334,9 @@ const ClubForm: FunctionComponent<ClubFormProps> = ({
                   onBlur={formik.handleBlur}
                   value={formik.values.houseNumber}
                 />
-                <label htmlFor="houseNumber">House Number</label>
+                <label htmlFor="houseNumber">
+                  House No. <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.houseNumber && formik.errors.houseNumber && (
                   <p className="text-danger">{formik.errors.houseNumber}</p>
                 )}

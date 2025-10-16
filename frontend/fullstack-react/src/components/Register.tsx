@@ -86,6 +86,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
     <>
       <div className="w-50 mx-auto py-3">
         <h1 className="display-1 text-center mb-4">Register</h1>
+        <p className="text-muted mb-3">
+          <span style={{ color: "red" }}>*</span> Indicates required field
+        </p>
         <form onSubmit={formik.handleSubmit}>
           <div className="row g-3">
             <div className="col-md">
@@ -101,7 +104,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.first}
                 />
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="firstName">
+                  First Name <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.first && formik.errors.first && (
                   <p className="text-danger">{formik.errors.first}</p>
                 )}
@@ -138,7 +143,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.last}
                 />
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="lastName">
+                  Last Name <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.last && formik.errors.last && (
                   <p className="text-danger">{formik.errors.last}</p>
                 )}
@@ -160,7 +167,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.phone}
                 />
-                <label htmlFor="tel">Phone Number</label>
+                <label htmlFor="tel">
+                  Phone Number <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.phone && formik.errors.phone && (
                   <p className="text-danger">{formik.errors.phone}</p>
                 )}
@@ -176,20 +185,19 @@ const Register: FunctionComponent<RegisterProps> = () => {
                   placeholder="jhon@doe.com"
                   name="email"
                   required
-                  //   disabled={!isCreateMode}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">
+                  Email <span style={{ color: "red" }}>*</span>
+                </label>
                 {formik.touched.email && formik.errors.email && (
                   <p className="text-danger">{formik.errors.email}</p>
                 )}
               </div>
             </div>
           </div>
-          {/*TODO: {isCreateMode && (
-            <> */}
           <div className="row g-2">
             <div className="col-md">
               <div className="form-floating mb-3 position-relative">
@@ -204,7 +212,9 @@ const Register: FunctionComponent<RegisterProps> = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">
+                  Password <span style={{ color: "red" }}>*</span>
+                </label>
                 <button
                   type="button"
                   className="btn btn-link position-absolute end-0 top-50 translate-middle-y"
@@ -225,8 +235,6 @@ const Register: FunctionComponent<RegisterProps> = () => {
               </div>
             </div>
           </div>
-          {/* </>
-          )} */}
 
           <div className="row g-2">
             <div className="col-md">
@@ -267,8 +275,6 @@ const Register: FunctionComponent<RegisterProps> = () => {
               </div>
             </div>
           </div>
-
-          {/* {isCreateMode ? ( */}
           <button
             disabled={!formik.isValid || !formik.dirty}
             type="submit"
@@ -276,15 +282,6 @@ const Register: FunctionComponent<RegisterProps> = () => {
           >
             Register
           </button>
-          {/* ) : (
-            <button
-              disabled={!formik.isValid || !formik.dirty}
-              type="submit"
-              className="btn btn-primary mt-4"
-            >
-              Edit
-            </button>
-          )} */}
         </form>
       </div>
     </>
