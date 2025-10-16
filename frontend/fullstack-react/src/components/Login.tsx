@@ -5,6 +5,7 @@ import { useFormik, type FormikValues } from "formik";
 import { loginUser } from "../services/authService";
 import { normalizeAuth } from "../utils/auth/normalizeAuth";
 import { errorMessage } from "../utils/ui/alert";
+import { saveToken } from "../utils/storage";
 
 interface LoginProps {
   loginEvent: () => void;
@@ -13,12 +14,13 @@ interface LoginProps {
 const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = async (values: FormikValues) => {
     try {
       const auth = normalizeAuth(values);
       const authResponse = await loginUser(auth);
-      sessionStorage.setItem("token", authResponse.data);
+      saveToken(authResponse.data.token, rememberMe);
       navigate("/");
       loginEvent();
     } catch (error) {
@@ -104,6 +106,20 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
             {formik.touched.password && formik.errors.password && (
               <p className="text-danger">{formik.errors.password}</p>
             )}
+          </div>
+
+          <div className="form-check form-switch mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="rememberMe"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="rememberMe">
+              Remember me
+            </label>
           </div>
 
           <button

@@ -17,11 +17,10 @@ import type { Club } from "./interfaces/clubs/Club";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import FavoritesManagement from "./components/FavoritesManagement";
+import { clearAuth, getToken, getUser } from "./utils/storage";
 
 function App() {
-  const [jwtToken, setJwtToken] = useState<string | null>(
-    sessionStorage.getItem("token")
-  );
+  const [jwtToken, setJwtToken] = useState<string | null>(getToken());
   const [clubs, setClubs] = useState<Club[]>([]);
   const [isClubsLoading, setIsClubsLoading] = useState<boolean>(true);
 
@@ -46,8 +45,7 @@ function App() {
   };
 
   const onLikeToggle = (clubId: string, isLiked: boolean) => {
-    const userString = sessionStorage.getItem("user");
-    const user = userString ? JSON.parse(userString) : null;
+    const user = getUser();
 
     setClubs(
       clubs.map((club) => {
@@ -73,14 +71,13 @@ function App() {
   decodeToken(jwtToken);
 
   const loginEvent = () => {
-    const token = sessionStorage.getItem("token");
+    const token = getToken();
     setJwtToken(token);
   };
 
   const logoutEvent = () => {
     setJwtToken(null);
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
+    clearAuth();
   };
 
   return (

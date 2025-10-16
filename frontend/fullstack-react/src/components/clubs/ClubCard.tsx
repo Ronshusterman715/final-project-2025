@@ -1,6 +1,7 @@
 import { type FunctionComponent } from "react";
 import type { Club } from "../../interfaces/clubs/Club";
 import { buildCompleteUrl } from "../../utils/imageUrlResolver";
+import { getUser } from "../../utils/storage";
 
 interface ClubCardProps {
   club: Club;
@@ -19,8 +20,7 @@ const ClubCard: FunctionComponent<ClubCardProps> = ({
   onClubEditClick,
   onLikeUnlikeClick,
 }) => {
-  const userString = sessionStorage.getItem("user");
-  const user = userString ? JSON.parse(userString) : null;
+  const user = getUser();
   const isUserLiked = user && club.likes?.includes(user._id);
 
   return (

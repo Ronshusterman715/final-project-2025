@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { errorMessage } from "../utils/ui/alert";
+import { clearAuth, saveUser } from "../utils/storage";
 
 export function decodeToken(token: string | null) {
   const [decodedToken, setDecodedToken] = useState<any | null>(null);
@@ -10,19 +11,19 @@ export function decodeToken(token: string | null) {
     if (!token) {
       setDecodedToken(null);
       setError(null);
-      sessionStorage.removeItem("user");
+      clearAuth();
       return;
     }
 
     try {
       const decodedToken = jwtDecode(token);
-      sessionStorage.setItem("user", JSON.stringify(decodedToken));
+      const rememberMe = localStorage.getItem("token") !== null;
+      saveUser(decodedToken, rememberMe);
       setDecodedToken(decodedToken);
       setError(null);
     } catch (error) {
       console.log(error);
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("user");
+      clearAuth();
       setError(error);
       errorMessage("Invalid token");
     }

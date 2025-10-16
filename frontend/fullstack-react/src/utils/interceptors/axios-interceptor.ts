@@ -1,5 +1,6 @@
 import axios from "axios";
 import { errorMessage } from "../ui/alert";
+import { clearAuth, getToken } from "../storage";
 
 const BASE_URL_API: string = import.meta.env.VITE_BASE_URL_API;
 
@@ -10,7 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("token");
+    const token = getToken();
     if (token) {
       config.headers["x-auth-token"] = token;
     }
@@ -27,8 +28,7 @@ axiosInstance.interceptors.response.use(
   },
   async (err) => {
     if (err.response && err.response.status === 401) {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("user");
+      clearAuth();
       errorMessage("Session expired. Please login again");
       window.location.href = "/login";
     }

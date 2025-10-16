@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { Club } from "../interfaces/clubs/Club";
 import { deleteClub, likeUnlikeClub } from "../services/clubsService";
 import { errorMessage, successMessage } from "../utils/ui/alert";
+import { getUser } from "../utils/storage";
 
 interface UseClubActionsProps {
   onRemoveFromView: (clubId: string) => void;
@@ -44,8 +45,7 @@ export const useClubActions = ({
   };
 
   const handleLikeUnlikeClick = async (club: Club) => {
-    const userString = sessionStorage.getItem("user");
-    const user = userString ? JSON.parse(userString) : null;
+    const user = getUser();
     try {
       const wasLiked = club.likes?.includes(user._id);
       await likeUnlikeClub(club._id!);

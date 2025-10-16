@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { errorMessage } from "../utils/ui/alert";
 import { useClubActions } from "../hooks/useClubActions";
 import ClubCard from "./clubs/ClubCard";
+import { getUser } from "../utils/storage";
 
 interface FavoritesManagementProps {
   clubs: Club[];
@@ -19,8 +20,7 @@ const FavoritesManagement: FunctionComponent<FavoritesManagementProps> = ({
   onLikeToggle,
 }) => {
   const navigate = useNavigate();
-  const userString = sessionStorage.getItem("user");
-  const user = userString ? JSON.parse(userString) : null;
+  const user = getUser();
 
   if (!user || !user.isAdmin) {
     errorMessage("Access Denied. You are not an admin.");

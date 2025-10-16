@@ -1,11 +1,11 @@
 import type { FunctionComponent } from "react";
 import { NavLink } from "react-router-dom";
+import { getUser } from "../utils/storage";
 
 interface FooterProps {}
 
 const Footer: FunctionComponent<FooterProps> = () => {
-  const userString = sessionStorage.getItem("user");
-  const user = userString ? JSON.parse(userString) : null;
+  const user = getUser();
 
   return (
     <footer className="bg-dark text-light py-4 mt-5">

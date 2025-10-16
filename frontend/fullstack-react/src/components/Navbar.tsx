@@ -1,13 +1,13 @@
 import type { FunctionComponent } from "react";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { getUser } from "../utils/storage";
 
 interface NavbarProps {
   logoutEvent: () => void;
 }
 
 const Navbar: FunctionComponent<NavbarProps> = ({ logoutEvent }) => {
-  const userString = sessionStorage.getItem("user");
-  const user = userString ? JSON.parse(userString) : null;
+  const user = getUser();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
