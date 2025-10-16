@@ -9,8 +9,7 @@ const generateAuthToken = (user) => {
         _id: user._id,
         isAdmin: user.isAdmin,
     };
-    //TODO change to 4h
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1m' });
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '4h' });
     return token;
 };
 
