@@ -112,12 +112,13 @@ const ClubDetails: FunctionComponent<ClubDetailsProps> = () => {
                     {club.address.street} {club.address.houseNumber}
                     <br />
                     {club.address.city}, {club.address.country}
-                    {club.address.floor && (
-                      <>
-                        <br />
-                        Floor {club.address.floor}
-                      </>
-                    )}
+                    {club.address.floor !== null &&
+                      club.address.floor !== undefined && (
+                        <>
+                          <br />
+                          Floor {club.address.floor}
+                        </>
+                      )}
                   </p>
                 </div>
               </div>
