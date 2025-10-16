@@ -198,14 +198,15 @@ All protected routes require an `x-auth-token` header with a valid JWT token.
 
 ```javascript
 {
-  name: String (2-256 chars, required),
-  description: String (2-256 chars, required),
+   name: String (2-256 chars, required),
+  description: String (2-1024 chars, required),
   type: String (2-256 chars, required),
   ageRequirement: String (1-11 chars, required),
   phone: String (9-11 chars, required),
   email: String (valid email, required),
+  openDays: String (2-256 chars, required),
   openHours: String (2-256 chars, required),
-  image: {
+  image: {: {
     url: String (14+ chars),
     alt: String (2-256 chars)
   },

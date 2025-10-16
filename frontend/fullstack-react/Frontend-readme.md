@@ -362,6 +362,7 @@ interface Club {
   phone: string;
   email: string;
   openHours: string;
+  openDays: string;
   image: {
     url: string;
     alt: string;
@@ -402,6 +403,7 @@ interface Club {
 - Age Requirement: 1-11 characters, required
 - Phone: 9-11 characters, Israeli format, required
 - Email: Valid email format, required
+- Open Days: 2-256 characters, required
 - Open Hours: 2-256 characters, required
 - Image URL: 14+ characters
 - Image Alt: 2-256 characters
