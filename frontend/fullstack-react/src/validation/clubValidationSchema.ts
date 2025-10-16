@@ -44,5 +44,5 @@ export const clubValidationSchema = yup.object({
   city: yup.string().min(2).max(256).required("City is required"),
   street: yup.string().min(2).max(256).required("Street is required"),
   houseNumber: yup.number().min(1).required("House Number is required"),
-  floor: yup.number().min(0),
+  floor: yup.number().min(-10),
 });
