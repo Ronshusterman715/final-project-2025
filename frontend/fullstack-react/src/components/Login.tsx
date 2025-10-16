@@ -20,7 +20,7 @@ const Login: FunctionComponent<LoginProps> = ({ loginEvent }) => {
     try {
       const auth = normalizeAuth(values);
       const authResponse = await loginUser(auth);
-      saveToken(authResponse.data.token, rememberMe);
+      saveToken(authResponse.data, rememberMe);
       navigate("/");
       loginEvent();
     } catch (error) {
