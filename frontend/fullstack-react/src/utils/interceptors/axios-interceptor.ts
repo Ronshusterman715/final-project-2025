@@ -1,4 +1,5 @@
 import axios from "axios";
+import { errorMessage } from "../ui/alert";
 
 const BASE_URL_API: string = import.meta.env.VITE_BASE_URL_API;
 
@@ -20,13 +21,15 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (res) => {
     return res;
   },
   async (err) => {
     if (err.response && err.response.status === 401) {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      errorMessage("Session expired. Please login again");
       window.location.href = "/login";
     }
     return Promise.reject(err);
